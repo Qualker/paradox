@@ -7,15 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap"
           rel="stylesheet">
-    <meta name="description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
-    <meta property="og:title" content="The Paradox" />
-    <meta property="og:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!" />
-    <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg" />
-    <meta property="og:url" content="https://theparadox.pt/" />
-    <meta property="og:type" content="website" />
+    <meta name="description"
+          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+    <meta property="og:title" content="The Paradox"/>
+    <meta property="og:description"
+          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!"/>
+    <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg"/>
+    <meta property="og:url" content="https://theparadox.pt/"/>
+    <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="The Paradox">
-    <meta name="twitter:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+    <meta name="twitter:description"
+          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
     <meta name="twitter:image" content="https://theparadox.pt/paradox_logo.svg">
     <style>
         body {
@@ -47,6 +50,30 @@
             position: relative;
             display: block;
         }
+
+        /* Declarar as fontes */
+        @font-face {
+            font-family: 'Marquette';
+            src: url('./fonts/Marquette.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Campaign-Serif';
+            src: url('./fonts/Campaign-Serif.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Aplicar a fonte */
+        h2 {
+            font-family: 'Marquette', serif;
+        }
+
+        h3 {
+            font-family: 'Campaign-Serif', serif;
+        }
     </style>
 
 </head>
@@ -73,7 +100,7 @@
     <!-- Cocktails -->
     <div id="cocktails" class="tab-content active">
         <!-- Cocktails de Assinatura -->
-        <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Cocktails de Assinatura</h2>
+        <h2 class="text-2xl font-bold">Cocktails de Assinatura</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
             <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amberlie</span> <span
@@ -99,7 +126,7 @@
                 <p class="text-gray-600 text-xs">Mezcal, limão, toranja</p></li>
         </ul>
         <!-- Cocktails Clássicos -->
-        <h2 class="text-2xl font-bold mt-6" style="font-family:'Playfair Display', serif">Cocktails Clássicos</h2>
+        <h2 class="text-2xl font-bold mt-6">Cocktails Clássicos</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
             <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cosmopolitan</span> <span
@@ -128,7 +155,7 @@
                 <p class="text-gray-600 text-xs">Whiskey, limão, clara de ovo (há opção vegan)</p></li>
         </ul>
         <!-- Mocktails -->
-        <h2 class="text-2xl font-bold mt-6" style="font-family:'Playfair Display', serif">Mocktails</h2>
+        <h2 class="text-2xl font-bold mt-6">Mocktails</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
             <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tincture</span> <span
@@ -147,114 +174,64 @@
     </div>
     <!-- Vinhos -->
     <div id="vinhos" class="tab-content">
-        <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Vinhos</h2>
+        <h2 class="text-2xl font-bold">Vinhos</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
 
         <!-- Tintos -->
         <h3 class="text-xl font-bold mt-6">Tintos</h3>
         <ul class="space-y-4 mt-3">
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
-                        class="text-gray-800">45</span></h3>
-                <p class="text-gray-600 text-xs">Colheita selecionada, Douro</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
-                        class="text-gray-800">28</span></h3>
-                <p class="text-gray-600 text-xs">Grande reserva, Douro</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Ânfora</span> <span class="text-gray-800">28</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL, Touriga Nacional</span> <span
-                        class="text-gray-800">25</span></h3>
-                <p class="text-gray-600 text-xs">Alentejo</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Syrah</span> <span class="text-gray-800">7 / 20</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Douro</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span
-                        class="text-gray-800">15</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p>
-            </li>
-
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">45</span></h3>
+                <p class="text-gray-600 text-xs">Colheita selecionada, Douro</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">28</span></h3>
+                <p class="text-gray-600 text-xs">Grande reserva, Douro</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Ânfora</span> <span class="text-gray-800">28</span></h3>
+                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">HDL, Touriga Nacional</span> <span class="text-gray-800">25</span></h3>
+                <p class="text-gray-600 text-xs">Alentejo</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Syrah</span> <span class="text-gray-800">7 / 20</span></h3>
+                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
+                <p class="text-gray-600 text-xs">Douro</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">15</span></h3>
+                <p class="text-gray-600 text-xs">Dão</p></li>
         </ul>
-
         <!-- Brancos -->
         <h3 class="text-xl font-bold mt-6">Brancos</h3>
         <ul class="space-y-4 mt-3">
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
-                        class="text-gray-800">25</span></h3>
-                <p class="text-gray-600 text-xs">Violeta, Douro</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
-                        class="text-gray-800">23</span></h3>
-                <p class="text-gray-600 text-xs">Arinto, Douro</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span
-                        class="text-gray-800">4 / 15</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Antão Vaz</span> <span
-                        class="text-gray-800">7 / 20</span></h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Renascido Serra da Estrela</span> <span
-                        class="text-gray-800">32</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p>
-            </li>
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Douro</p>
-            </li>
-
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">25</span></h3>
+                <p class="text-gray-600 text-xs">Violeta, Douro</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">23</span></h3>
+                <p class="text-gray-600 text-xs">Arinto, Douro</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">4 / 15</span></h3>
+                <p class="text-gray-600 text-xs">Dão</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Antão Vaz</span> <span class="text-gray-800">7 / 20</span></h3>
+                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Renascido Serra da Estrela</span> <span class="text-gray-800">32</span></h3>
+                <p class="text-gray-600 text-xs">Dão</p></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
+                <p class="text-gray-600 text-xs">Douro</p></li>
         </ul>
-
         <!-- Rosés -->
         <h3 class="text-xl font-bold mt-6">Rosés</h3>
         <ul class="space-y-4 mt-3">
-
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL Rosé</span> <span class="text-gray-800">6 / 18</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Alentejo</p>
-            </li>
-
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">HDL Rosé</span> <span class="text-gray-800">6 / 18</span></h3>
+                <p class="text-gray-600 text-xs">Alentejo</p></li>
+        </ul>
+        <!-- Sangrias -->
+        <h2 class="text-2xl font-bold mt-6">Sangrias</h2>
+        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
+        <ul class="space-y-3 mt-3">
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Frutos Vermelhos</span> <span
+                    class="text-gray-800">16 / 28</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Maracujá</span> <span
+                    class="text-gray-800">16 / 28</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria</span> <span
+                    class="text-gray-800">4</span></h3></li>
         </ul>
     </div>
     <!-- Drinks -->
     <div id="drinks" class="tab-content">
-        <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Drinks</h2>
+        <h2 class="text-2xl font-bold">Drinks</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
 
         <!-- Cervejas e Sidras -->
@@ -417,21 +394,10 @@
             <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Campari</span> <span
                     class="text-gray-800">7</span></h3></li>
         </ul>
-
-        <!-- Sangrias -->
-        <h3 class="text-xl font-bold mt-6">Sangrias</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Frutos Vermelhos</span> <span
-                    class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Maracujá</span> <span
-                    class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria</span> <span
-                    class="text-gray-800">4</span></h3></li>
-        </ul>
     </div>
     <!-- Bebidas Leves -->
     <div id="bebidas-leves" class="tab-content">
-        <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Bebidas Leves</h2>
+        <h2 class="text-2xl font-bold">Bebidas Leves</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
 
         <!-- Cafetaria -->
@@ -481,9 +447,10 @@
     </div>
     <!-- Petiscos -->
     <div id="petiscar" class="tab-content">
-        <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Para Pesticar</h2>
+        <h2 class="text-2xl font-bold">Para Pesticar</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
 
+        <!-- Tábuas -->
         <!-- Tábuas -->
         <h3 class="text-xl font-bold mt-6">Tábuas</h3>
         <ul class="space-y-4 mt-3">
