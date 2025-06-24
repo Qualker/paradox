@@ -5,16 +5,29 @@
     <title>The Paradox</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tipos de letra do Menu Paradox -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap"
           rel="stylesheet">
+    <meta name="description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+    <meta property="og:title" content="The Paradox" />
+    <meta property="og:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!" />
+    <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg" />
+    <meta property="og:url" content="https://theparadox.pt/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Paradox">
+    <meta name="twitter:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+    <meta name="twitter:image" content="https://theparadox.pt/paradox_logo.svg">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .active-tab {
             color: #C4A25E;
             font-weight: bold;
             border-bottom: 2px solid #C4A25E;
         }
+
         .tab-content {
             opacity: 0;
             transform: translateY(10px);
@@ -26,6 +39,7 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             display: none;
         }
+
         .tab-content.active {
             opacity: 1;
             transform: translateY(0);
@@ -62,53 +76,72 @@
         <h2 class="text-2xl font-bold" style="font-family:'Playfair Display', serif">Cocktails de Assinatura</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amberlie</span> <span class="text-gray-800">11</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amberlie</span> <span
+                    class="text-gray-800">11</span></h3>
                 <p class="text-gray-600 text-xs">Bourbon, disaronno, limão, angostura, fee foam</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bruma</span> <span class="text-gray-800">11</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bruma</span> <span
+                    class="text-gray-800">11</span></h3>
                 <p class="text-gray-600 text-xs">Gin ervilha, licor beirão, limão, canela, cardamomo, angostura</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Fyrra</span> <span class="text-gray-800">12</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Fyrra</span> <span
+                    class="text-gray-800">12</span></h3>
                 <p class="text-gray-600 text-xs">Tequila, triple sec, licor de chile, lima, agave, pimenta</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Paramule</span> <span class="text-gray-800">13</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Paramule</span> <span
+                    class="text-gray-800">13</span></h3>
                 <p class="text-gray-600 text-xs">Vodka ervilha, ginger beer, limão, beterraba, toranja, lima</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Passion Fruit Paradise</span> <span class="text-gray-800">12</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Passion Fruit Paradise</span> <span
+                    class="text-gray-800">12</span></h3>
                 <p class="text-gray-600 text-xs">Vodka, vodka morango, triple sec, maracujá</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Velora</span> <span class="text-gray-800">12</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Velora</span> <span
+                    class="text-gray-800">12</span></h3>
                 <p class="text-gray-600 text-xs">Rum, manjericão roxo, limão, alecrim, cardamomo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Xantho</span> <span class="text-gray-800">13</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Xantho</span> <span
+                    class="text-gray-800">13</span></h3>
                 <p class="text-gray-600 text-xs">Mezcal, limão, toranja</p></li>
         </ul>
         <!-- Cocktails Clássicos -->
         <h2 class="text-2xl font-bold mt-6" style="font-family:'Playfair Display', serif">Cocktails Clássicos</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cosmopolitan</span> <span class="text-gray-800">8</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cosmopolitan</span> <span
+                    class="text-gray-800">8</span></h3>
                 <p class="text-gray-600 text-xs">Vodka, triple sec, cranberry, limão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Daiquiri</span> <span class="text-gray-800">8</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Daiquiri</span> <span
+                    class="text-gray-800">8</span></h3>
                 <p class="text-gray-600 text-xs">Rum, limão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Dry Martini</span> <span class="text-gray-800">8</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Dry Martini</span> <span
+                    class="text-gray-800">8</span></h3>
                 <p class="text-gray-600 text-xs">Gin seco, vermute seco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Expresso Martini</span> <span class="text-gray-800">9</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Expresso Martini</span> <span
+                    class="text-gray-800">9</span></h3>
                 <p class="text-gray-600 text-xs">Vodka, licor de café, café</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Negroni</span> <span class="text-gray-800">9</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Negroni</span> <span
+                    class="text-gray-800">9</span></h3>
                 <p class="text-gray-600 text-xs">Gin seco, campari, vermute doce</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pisco Sour</span> <span class="text-gray-800">10</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pisco Sour</span> <span
+                    class="text-gray-800">10</span></h3>
                 <p class="text-gray-600 text-xs">Pisco, limão, clara de ovo (há opção vegan)</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pornstar Martini</span> <span class="text-gray-800">10</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pornstar Martini</span> <span
+                    class="text-gray-800">10</span></h3>
                 <p class="text-gray-600 text-xs">Vodka, baunilha, maracujá, prosecco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Whiskey Sour</span> <span class="text-gray-800">9</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Whiskey Sour</span> <span
+                    class="text-gray-800">9</span></h3>
                 <p class="text-gray-600 text-xs">Whiskey, limão, clara de ovo (há opção vegan)</p></li>
         </ul>
         <!-- Mocktails -->
         <h2 class="text-2xl font-bold mt-6" style="font-family:'Playfair Display', serif">Mocktails</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tincture</span> <span class="text-gray-800">6</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tincture</span> <span
+                    class="text-gray-800">6</span></h3>
                 <p class="text-gray-600 text-xs">Limão, toranja, beterraba, alecrim, cardamomo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Twist</span> <span class="text-gray-800">6</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Twist</span> <span class="text-gray-800">6</span>
+            </h3>
                 <p class="text-gray-600 text-xs">Lima, toranja, agave, tabasco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Mojito</span> <span class="text-gray-800">4</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Mojito</span> <span class="text-gray-800">4</span>
+            </h3>
                 <p class="text-gray-600 text-xs">Lima, água com gás, pêssego</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Caipirinha</span> <span class="text-gray-800">4</span></h3>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Caipirinha</span> <span
+                    class="text-gray-800">4</span></h3>
                 <p class="text-gray-600 text-xs">Lima, sumo de limão, pêssego</p></li>
         </ul>
     </div>
@@ -122,37 +155,44 @@
         <ul class="space-y-4 mt-3">
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">45</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
+                        class="text-gray-800">45</span></h3>
                 <p class="text-gray-600 text-xs">Colheita selecionada, Douro</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">28</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
+                        class="text-gray-800">28</span></h3>
                 <p class="text-gray-600 text-xs">Grande reserva, Douro</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Ânfora</span> <span class="text-gray-800">28</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Ânfora</span> <span class="text-gray-800">28</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL, Touriga Nacional</span> <span class="text-gray-800">25</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL, Touriga Nacional</span> <span
+                        class="text-gray-800">25</span></h3>
                 <p class="text-gray-600 text-xs">Alentejo</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Syrah</span> <span class="text-gray-800">7 / 20</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Syrah</span> <span class="text-gray-800">7 / 20</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Douro</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">15</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span
+                        class="text-gray-800">15</span></h3>
                 <p class="text-gray-600 text-xs">Dão</p>
             </li>
 
@@ -163,32 +203,38 @@
         <ul class="space-y-4 mt-3">
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">25</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
+                        class="text-gray-800">25</span></h3>
                 <p class="text-gray-600 text-xs">Violeta, Douro</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">23</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span
+                        class="text-gray-800">23</span></h3>
                 <p class="text-gray-600 text-xs">Arinto, Douro</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">4 / 15</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span
+                        class="text-gray-800">4 / 15</span></h3>
                 <p class="text-gray-600 text-xs">Dão</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Antão Vaz</span> <span class="text-gray-800">7 / 20</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Antão Vaz</span> <span
+                        class="text-gray-800">7 / 20</span></h3>
                 <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Renascido Serra da Estrela</span> <span class="text-gray-800">32</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Renascido Serra da Estrela</span> <span
+                        class="text-gray-800">32</span></h3>
                 <p class="text-gray-600 text-xs">Dão</p>
             </li>
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Douro</p>
             </li>
 
@@ -199,7 +245,8 @@
         <ul class="space-y-4 mt-3">
 
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL Rosé</span> <span class="text-gray-800">6 / 18</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">HDL Rosé</span> <span class="text-gray-800">6 / 18</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Alentejo</p>
             </li>
 
@@ -213,112 +260,173 @@
         <!-- Cervejas e Sidras -->
         <h3 class="text-xl font-bold mt-6">Cervejas e Sidras</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Sagres 0,20l</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Heineken 0,25l</span> <span class="text-gray-800">2,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Super Bock 0,20l</span> <span class="text-gray-800">1,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Super Bock 0,33l</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Sagres</span> <span class="text-gray-800">3,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Heineken</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bandida do Pomar 0,25l</span> <span class="text-gray-800">3</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Sagres 0,20l</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Heineken 0,25l</span> <span
+                    class="text-gray-800">2,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Super Bock 0,20l</span> <span
+                    class="text-gray-800">1,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Super Bock 0,33l</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Sagres</span> <span class="text-gray-800">3,50</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Heineken</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bandida do Pomar 0,25l</span> <span
+                    class="text-gray-800">3</span></h3></li>
         </ul>
 
         <!-- Vodkas -->
         <h3 class="text-xl font-bold mt-6">Vodkas</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Eristoff</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Morango</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Preta</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Belvedere</span> <span class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Grey Goose</span> <span class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Citron</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Vanilla</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span class="text-gray-800">10</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Eristoff</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Morango</span> <span class="text-gray-800">7</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Preta</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Belvedere</span> <span
+                    class="text-gray-800">10</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Grey Goose</span> <span
+                    class="text-gray-800">10</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Citron</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Vanilla</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span
+                    class="text-gray-800">10</span></h3></li>
         </ul>
 
         <!-- Gins -->
         <h3 class="text-xl font-bold mt-6">Gins</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater Pink</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay Sapphire</span> <span class="text-gray-800">9</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tanqueray</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Gin Mare</span> <span class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Monkey 47</span> <span class="text-gray-800">16</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Hendricks</span> <span class="text-gray-800">11</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">G’Vine</span> <span class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Black Pig</span> <span class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater Pink</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay Sapphire</span> <span
+                    class="text-gray-800">9</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tanqueray</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Gin Mare</span> <span
+                    class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Monkey 47</span> <span
+                    class="text-gray-800">16</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Hendricks</span> <span
+                    class="text-gray-800">11</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">G’Vine</span> <span
+                    class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span
+                    class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Black Pig</span> <span
+                    class="text-gray-800">12</span></h3></li>
         </ul>
 
         <!-- Whiskeys -->
         <h3 class="text-xl font-bold mt-6">Whiskeys</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Macallan</span> <span class="text-gray-800">15</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jameson</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bushmills</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Label</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Black Label</span> <span class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Famous Grouse</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jack Daniels</span> <span class="text-gray-800">9</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Macallan</span> <span
+                    class="text-gray-800">15</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jameson</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bushmills</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Label</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Black Label</span> <span
+                    class="text-gray-800">10</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Famous Grouse</span> <span class="text-gray-800">7</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jack Daniels</span> <span
+                    class="text-gray-800">9</span></h3></li>
         </ul>
 
         <!-- Bourbon -->
         <h3 class="text-xl font-bold mt-6">Bourbon</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jim Bean</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Four Roses</span> <span class="text-gray-800">10</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jim Bean</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Four Roses</span> <span
+                    class="text-gray-800">10</span></h3></li>
         </ul>
 
         <!-- Tequilla -->
         <h3 class="text-xl font-bold mt-6">Tequilla</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Patron</span> <span class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sierra</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Don Diego</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca Chocolate</span> <span class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Clase Azul Plata</span> <span class="text-gray-800">24</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Patron</span> <span
+                    class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sierra</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Don Diego</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca Chocolate</span> <span
+                    class="text-gray-800">8</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Clase Azul Plata</span> <span
+                    class="text-gray-800">24</span></h3></li>
         </ul>
 
         <!-- Mezcal -->
         <h3 class="text-xl font-bold mt-6">Mezcal</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal Únion</span> <span class="text-gray-800">13</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal San Cosme</span> <span class="text-gray-800">11</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal Únion</span> <span class="text-gray-800">13</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal San Cosme</span> <span
+                    class="text-gray-800">11</span></h3></li>
         </ul>
 
         <!-- Rum -->
         <h3 class="text-xl font-bold mt-6">Rum</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bacardi</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 3 Anos</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 7 Anos</span> <span class="text-gray-800">11</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Diplomatic</span> <span class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Barceló</span> <span class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bacardi</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 3 Anos</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 7 Anos</span> <span
+                    class="text-gray-800">11</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Diplomatic</span> <span
+                    class="text-gray-800">12</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Barceló</span> <span
+                    class="text-gray-800">7</span></h3></li>
         </ul>
 
         <!-- Licores -->
         <h3 class="text-xl font-bold mt-6">Licores</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beirão</span> <span class="text-gray-800">5</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amêndoa Amarga</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Martini</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Moscatel</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Baileys</span> <span class="text-gray-800">6</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Aperol</span> <span class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cointreau</span> <span class="text-gray-800">9</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Malibu</span> <span class="text-gray-800">6</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Campari</span> <span class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beirão</span> <span
+                    class="text-gray-800">5</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amêndoa Amarga</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Martini</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Moscatel</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Baileys</span> <span
+                    class="text-gray-800">6</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Aperol</span> <span
+                    class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cointreau</span> <span
+                    class="text-gray-800">9</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Malibu</span> <span
+                    class="text-gray-800">6</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Campari</span> <span
+                    class="text-gray-800">7</span></h3></li>
         </ul>
 
         <!-- Sangrias -->
         <h3 class="text-xl font-bold mt-6">Sangrias</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Frutos Vermelhos</span> <span class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Maracujá</span> <span class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria</span> <span class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Frutos Vermelhos</span> <span
+                    class="text-gray-800">16 / 28</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Maracujá</span> <span
+                    class="text-gray-800">16 / 28</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria</span> <span
+                    class="text-gray-800">4</span></h3></li>
         </ul>
     </div>
     <!-- Bebidas Leves -->
@@ -329,31 +437,46 @@
         <!-- Cafetaria -->
         <h3 class="text-xl font-bold mt-6">Cafetaria</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Café</span> <span class="text-gray-800">1</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Descafeinado</span> <span class="text-gray-800">1</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Chá</span> <span class="text-gray-800">1,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Carioca Limão</span> <span class="text-gray-800">1,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Café</span> <span class="text-gray-800">1</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Descafeinado</span> <span
+                    class="text-gray-800">1</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Chá</span> <span
+                    class="text-gray-800">1,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Carioca Limão</span> <span class="text-gray-800">1,50</span>
+            </h3></li>
         </ul>
 
         <!-- Águas -->
         <h3 class="text-xl font-bold mt-6">Águas</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água 0,50l</span> <span class="text-gray-800">1,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Castelo</span> <span class="text-gray-800">1,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água das Pedras</span> <span class="text-gray-800">1,80</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pedras de Sabores</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Tónica</span> <span class="text-gray-800">3</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água 0,50l</span> <span class="text-gray-800">1,50</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Castelo</span> <span class="text-gray-800">1,50</span>
+            </h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água das Pedras</span> <span
+                    class="text-gray-800">1,80</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pedras de Sabores</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Tónica</span> <span
+                    class="text-gray-800">3</span></h3></li>
         </ul>
 
         <!-- Refrigerantes -->
         <h3 class="text-xl font-bold mt-6">Refrigerantes</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola Zero</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ice Tea</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ginger Ale</span> <span class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Bull</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Compal</span> <span class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola Zero</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ice Tea</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ginger Ale</span> <span
+                    class="text-gray-800">2</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Bull</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Compal</span> <span
+                    class="text-gray-800">2</span></h3></li>
         </ul>
     </div>
     <!-- Petiscos -->
@@ -365,16 +488,22 @@
         <h3 class="text-xl font-bold mt-6">Tábuas</h3>
         <ul class="space-y-4 mt-3">
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Queijos</span> <span class="text-gray-800">10 / 16</span></h3>
-                <p class="text-gray-600 text-xs">Diversos tipos de queijo, queijo da serra amanteigado, frutos secos, uvas, manteiga, cesta de pão</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Queijos</span> <span
+                        class="text-gray-800">10 / 16</span></h3>
+                <p class="text-gray-600 text-xs">Diversos tipos de queijo, queijo da serra amanteigado, frutos secos,
+                    uvas, manteiga, cesta de pão</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Enchidos</span> <span class="text-gray-800">10 / 16</span></h3>
-                <p class="text-gray-600 text-xs">Presunto, salpicão, cachaço, chouriço preto, chouriço assado, uvas, frutos secos, cesta de pão</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Enchidos</span> <span
+                        class="text-gray-800">10 / 16</span></h3>
+                <p class="text-gray-600 text-xs">Presunto, salpicão, cachaço, chouriço preto, chouriço assado, uvas,
+                    frutos secos, cesta de pão</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua Paradox</span> <span class="text-gray-800">12 / 19</span></h3>
-                <p class="text-gray-600 text-xs">Mix de queijos e enchidos, presunto, uvas, frutos secos, cesta de pão</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua Paradox</span> <span class="text-gray-800">12 / 19</span>
+                </h3>
+                <p class="text-gray-600 text-xs">Mix de queijos e enchidos, presunto, uvas, frutos secos, cesta de
+                    pão</p>
             </li>
         </ul>
 
@@ -382,20 +511,28 @@
         <h3 class="text-xl font-bold mt-6">Sandes</h3>
         <ul class="space-y-4 mt-3">
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Enchidos</span> <span class="text-gray-800">8,50</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco com mix de enchidos, acompanhado por batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Enchidos</span> <span
+                        class="text-gray-800">8,50</span></h3>
+                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco com mix de enchidos, acompanhado por
+                    batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Lombinhos de Porco</span> <span class="text-gray-800">7</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo, salada e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Lombinhos de Porco</span> <span
+                        class="text-gray-800">7</span></h3>
+                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo, salada e
+                    batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Lombinhos Paradox</span> <span class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo da serra, presunto, salada e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Lombinhos Paradox</span> <span
+                        class="text-gray-800">9</span></h3>
+                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo da serra,
+                    presunto, salada e batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Paradox</span> <span class="text-gray-800">6</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, presunto, queijo da serra e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Paradox</span> <span
+                        class="text-gray-800">6</span></h3>
+                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, presunto, queijo da serra e batatas
+                    fritas</p>
             </li>
         </ul>
 
@@ -403,16 +540,22 @@
         <h3 class="text-xl font-bold mt-6">Hambúrgueres</h3>
         <ul class="space-y-4 mt-3">
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Cheese Burger</span> <span class="text-gray-800">6</span></h3>
-                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, alface, tomate, cebola frita e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Cheese Burger</span> <span class="text-gray-800">6</span>
+                </h3>
+                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, alface,
+                    tomate, cebola frita e batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">X Burger</span> <span class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, fiambre, bacon, cebola frita, alface, tomate e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">X Burger</span> <span
+                        class="text-gray-800">9</span></h3>
+                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, fiambre,
+                    bacon, cebola frita, alface, tomate e batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Paradox Burger</span> <span class="text-gray-800">11</span></h3>
-                <p class="text-gray-600 text-xs">Hambúrguer de picanha em pão brioche, com queijo da serra, presunto, ovo, salada, cebola frita e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Paradox Burger</span> <span
+                        class="text-gray-800">11</span></h3>
+                <p class="text-gray-600 text-xs">Hambúrguer de picanha em pão brioche, com queijo da serra, presunto,
+                    ovo, salada, cebola frita e batatas fritas</p>
             </li>
         </ul>
 
@@ -420,15 +563,19 @@
         <h3 class="text-xl font-bold mt-6">Tostas</h3>
         <ul class="space-y-4 mt-3">
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Mista</span> <span class="text-gray-800">7</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Mista</span> <span
+                        class="text-gray-800">7</span></h3>
                 <p class="text-gray-600 text-xs">Pão saloio com queijo, fiambre, manteiga, orégãos e batatas fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta de Atum</span> <span class="text-gray-800">8</span></h3>
-                <p class="text-gray-600 text-xs">Pão saloio com atum, queijo, alface, tomate, orégãos e batatas fritas</p>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta de Atum</span> <span class="text-gray-800">8</span>
+                </h3>
+                <p class="text-gray-600 text-xs">Pão saloio com atum, queijo, alface, tomate, orégãos e batatas
+                    fritas</p>
             </li>
             <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Paradox</span> <span class="text-gray-800">9</span></h3>
+                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Paradox</span> <span class="text-gray-800">9</span>
+                </h3>
                 <p class="text-gray-600 text-xs">Pão saloio com queijo da serra, presunto, salada e batatas fritas</p>
             </li>
         </ul>
@@ -436,10 +583,14 @@
         <!-- Outros Petiscos -->
         <h3 class="text-xl font-bold mt-6">Outros Petiscos</h3>
         <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cesto de Pão Extra</span> <span class="text-gray-800">2 / 2,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Batatas Fritas</span> <span class="text-gray-800">3,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pão de Alho</span> <span class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Asas de Frango</span> <span class="text-gray-800">7</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cesto de Pão Extra</span> <span
+                    class="text-gray-800">2 / 2,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Batatas Fritas</span> <span
+                    class="text-gray-800">3,50</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pão de Alho</span> <span
+                    class="text-gray-800">4</span></h3></li>
+            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Asas de Frango</span> <span
+                    class="text-gray-800">7</span></h3></li>
         </ul>
     </div>
 </main>
