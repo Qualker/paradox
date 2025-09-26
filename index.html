@@ -88,16 +88,20 @@
 
 <!-- ABAS DE NAVEGAÇÃO (mobile-first: scroll horizontal) -->
   <nav class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b" style="border-color: var(--brand);">
-    <div class="flex gap-2 overflow-x-auto no-scrollbar whitespace-nowrap px-2 py-1">
-      <button class="tab-button active-tab flex-none px-3 py-3 text-base rounded-md" data-tab="inicio">Início</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="cocktails">Cocktails</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="vinhos">Vinhos</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="drinks">Drinks</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="bebidas-leves">Bebidas Leves</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="petiscar">Petiscar</button>
-      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="shisha">Shisha</button>
-    </div>
-  </nav>
+  <div
+    class="flex gap-2 overflow-x-auto no-scrollbar whitespace-nowrap px-2 py-1
+           md:overflow-visible md:whitespace-normal md:flex-wrap md:justify-center
+           md:max-w-4xl md:mx-auto"
+  >
+    <button class="tab-button active-tab flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="inicio">Início</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="cocktails">Cocktails</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="vinhos">Vinhos</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="drinks">Drinks</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="bebidas-leves">Bebidas Leves</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="petiscar">Petiscar</button>
+    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="shisha">Shisha</button>
+  </div>
+</nav>
 
 <!-- SEÇÃO DE CONTEÚDO -->
 <main class="flex-1 p-4 relative text-center">
@@ -632,3 +636,4 @@ Seguir no Instagram
 
 </body>
 </html>
+
