@@ -1,83 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>The Paradox</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap"
-          rel="stylesheet">
-    <meta name="description"
-          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
-    <meta property="og:title" content="The Paradox"/>
-    <meta property="og:description"
-          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!"/>
-    <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg"/>
-    <meta property="og:url" content="https://theparadox.pt/"/>
-    <meta property="og:type" content="website"/>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Paradox">
-    <meta name="twitter:description"
-          content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
-    <meta name="twitter:image" content="https://theparadox.pt/paradox_logo.svg">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+	<meta charset="UTF-8">
+	  <title>The Paradox</title>
+	  <meta name="viewport" content="width=device-width,initial-scale=1">
+	  <script src="https://cdn.tailwindcss.com"></script>
+	  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
-        .active-tab {
-            color: #C4A25E;
-            font-weight: bold;
-            border-bottom: 2px solid #C4A25E;
-        }
+	  <meta name="description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+	  <meta property="og:title" content="The Paradox"/>
+	  <meta property="og:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!"/>
+	  <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg"/>
+	  <meta property="og:url" content="https://theparadox.pt/"/>
+	  <meta property="og:type" content="website"/>
+	  <meta name="twitter:card" content="summary_large_image">
+	  <meta name="twitter:title" content="The Paradox">
+	  <meta name="twitter:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
+	  <meta name="twitter:image" content="https://theparadox.pt/paradox_logo.svg">
+	  <link rel="icon" href="favicon.png" type="image/png">
+	<style>
+    :root { --brand: #C4A25E; }
 
-        .tab-content {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            text-align: center;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            display: none;
-        }
+    body { font-family: 'Inter', sans-serif; }
 
-        .tab-content.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-            position: relative;
-            display: block;
-        }
+    .active-tab {
+      color: var(--brand);
+      font-weight: bold;
+      border-bottom: 2px solid var(--brand);
+    }
 
-        /* Declarar as fontes */
-        @font-face {
-            font-family: 'Marquette';
-            src: url('./fonts/Marquette.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
+    .tab-content {
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      text-align: center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: none;
+    }
+    .tab-content.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+      display: block;
+    }
 
-        @font-face {
-            font-family: 'Campaign-Serif';
-            src: url('./fonts/Campaign-Serif.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
+    /* Declarar as fontes */
+    @font-face {
+      font-family: 'Marquette';
+      src: url('./fonts/Marquette.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Campaign-Serif';
+      src: url('./fonts/Campaign-Serif.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-        /* Aplicar a fonte */
-        h2 {
-            font-family: 'Marquette', serif;
-        }
+    /* Aplicar a fonte */
+    h2 { font-family: 'Marquette', serif; }
+    h3 { font-family: 'Campaign-Serif', serif; }
 
-        h3 {
-            font-family: 'Campaign-Serif', serif;
-        }
-    </style>
+    /* Mobile helpers */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab-content { transition: none; }
+    }
+  </style>
 
 </head>
-<link rel="icon" href="favicon.png" type="image/png">
 <body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
 <!-- LOGO HEADER -->
@@ -86,20 +86,40 @@
 </header>
 
 
-<!-- ABAS DE NAVEGAÇÃO -->
-<nav class="flex justify-around space-x-2 p-2 border-b" style="border-color: #C4A25E;">
-    <button class="tab-button active-tab flex-1 p-2 text-sm sm:text-base" data-tab="cocktails">Cocktails</button>
-    <button class="tab-button flex-1 p-2 text-sm sm:text-base" data-tab="vinhos">Vinhos</button>
-    <button class="tab-button flex-1 p-2 text-sm sm:text-base" data-tab="drinks">Drinks</button>
-    <button class="tab-button flex-1 p-2 text-sm sm:text-base" data-tab="bebidas-leves">Bebidas Leves</button>
-    <button class="tab-button flex-1 p-2 text-sm sm:text-base" data-tab="petiscar">Petiscar</button>
-    <button class="tab-button flex-1 p-2 text-sm sm:text-base" data-tab="shisha">Shisha</button>
-</nav>
+<!-- ABAS DE NAVEGAÇÃO (mobile-first: scroll horizontal) -->
+  <nav class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b" style="border-color: var(--brand);">
+    <div class="flex gap-2 overflow-x-auto no-scrollbar whitespace-nowrap px-2 py-1">
+      <button class="tab-button active-tab flex-none px-3 py-3 text-base rounded-md" data-tab="inicio">Início</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="cocktails">Cocktails</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="vinhos">Vinhos</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="drinks">Drinks</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="bebidas-leves">Bebidas Leves</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="petiscar">Petiscar</button>
+      <button class="tab-button flex-none px-3 py-3 text-base rounded-md" data-tab="shisha">Shisha</button>
+    </div>
+  </nav>
 
 <!-- SEÇÃO DE CONTEÚDO -->
 <main class="flex-1 p-4 relative text-center">
+	<!-- Inicio -->
+    <div id="inicio" class="tab-content active">
+      <h2 class="text-2xl font-bold text-center">Seja bem-vindo ao The Paradox</h2>
+      <div class="w-16 h-0.5 bg-[color:var(--brand)] my-3 mx-auto"></div>
+      <div class="max-w-prose mx-auto text-center space-y-3">
+        <p class="text-gray-700">Siga-nos no Instagram e partilhe o seu momento para receber <strong>um shot de oferta</strong>.</p>
+        <p class="text-sm text-gray-500">Mostre o post à nossa equipa no balcão.</p>
+
+        <a href="https://instagram.com/theparadoxbar" target="_blank" rel="noopener"
+class="group inline-flex items-center justify-center gap-2 px-4 py-3 border rounded-full hover:bg-black hover:text-white transition text-base"
+style="border-color: var(--brand)">
+<img src="images/instagram.png" alt="Instagram" class="w-5 h-5 filter brightness-0 group-hover:invert"/>
+Seguir no Instagram
+</a>
+      </div>
+    </div>
+
     <!-- Cocktails -->
-    <div id="cocktails" class="tab-content active">
+    <div id="cocktails" class="tab-content">
         <!-- Cocktails de Assinatura -->
         <h2 class="text-2xl font-bold">Cocktails de Assinatura</h2>
         <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
