@@ -1,637 +1,1430 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
-	<meta charset="UTF-8">
-	  <title>The Paradox</title>
-	  <meta name="viewport" content="width=device-width,initial-scale=1">
-	  <script src="https://cdn.tailwindcss.com"></script>
-	  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Paradox - Restaurantes & Cocktail Bars</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-	  <meta name="description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
-	  <meta property="og:title" content="The Paradox"/>
-	  <meta property="og:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!"/>
-	  <meta property="og:image" content="https://theparadox.pt/paradox_logo.svg"/>
-	  <meta property="og:url" content="https://theparadox.pt/"/>
-	  <meta property="og:type" content="website"/>
-	  <meta name="twitter:card" content="summary_large_image">
-	  <meta name="twitter:title" content="The Paradox">
-	  <meta name="twitter:description" content="Menu do The Paradox — Cocktails, Vinhos, Petiscos e muito mais para uma experiência única!">
-	  <meta name="twitter:image" content="https://theparadox.pt/paradox_logo.svg">
-	  <link rel="icon" href="favicon.png" type="image/png">
-	<style>
-    :root { --brand: #C4A25E; }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            --brand-color: #C4A25E; /* ajusta se já tiveres no style.css */
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --muted: #666;
+            --card-border: #eaeaea;
+        }
 
-    body { font-family: 'Inter', sans-serif; }
+        /* container garantido */
+        .container{
+            max-width: 1120px;
+            margin: 0 auto;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
 
-    .active-tab {
-      color: var(--brand);
-      font-weight: bold;
-      border-bottom: 2px solid var(--brand);
-    }
+        body{
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            background: #fff;
+        }
 
-    .tab-content {
-      opacity: 0;
-      transform: translateY(10px);
-      pointer-events: none;
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      text-align: center;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      display: none;
-    }
-    .tab-content.active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      position: relative;
-      display: block;
-    }
+        /* HERO */
+        /* HERO - ENTRANCE */
+        .hero--entrance{
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#0b0b0b;
+        }
 
-    /* Declarar as fontes */
-    @font-face {
-      font-family: 'Marquette';
-      src: url('./fonts/Marquette.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Campaign-Serif';
-      src: url('./fonts/Campaign-Serif.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
+        .hero-stack{
+            position:absolute;
+            inset:0;
+            z-index:1;
+        }
 
-    /* Aplicar a fonte */
-    h2 { font-family: 'Marquette', serif; }
-    h3 { font-family: 'Campaign-Serif', serif; }
+        /* “Molho” de fotos */
+        .stack-img{
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:min(1100px, 92vw);
+            height:min(720px, 72vh);
+            object-fit:cover;
+            transform: translate(-50%, -50%);
+            border-radius: 18px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            filter: saturate(0.95) contrast(1.05);
+            opacity: 0; /* entra com animação */
+        }
 
-    /* Mobile helpers */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* cada foto com ligeira rotação e offset */
+        .img-1{ transform: translate(-52%, -52%) rotate(-3.5deg) scale(1.03); }
+        .img-2{ transform: translate(-48%, -50%) rotate(2.0deg) scale(1.01); }
+        .img-3{ transform: translate(-50%, -48%) rotate(-1.2deg) scale(1.00); }
+        .img-4{ transform: translate(-49%, -51%) rotate(3.2deg) scale(0.99); }
 
-    @media (prefers-reduced-motion: reduce) {
-      .tab-content { transition: none; }
-    }
-  </style>
+        /* animação das fotos (aparecem suavemente) */
+        .hero--entrance.is-ready .stack-img{
+            opacity: 1;
+            transition: opacity 900ms ease;
+        }
+
+        /* Overlay para “intimista/chique” */
+        .hero-overlay{
+            position:absolute;
+            inset:0;
+            background:
+                    radial-gradient(900px 520px at 50% 42%, rgba(0,0,0,0.35), rgba(0,0,0,0.80)),
+                    linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.88));
+            z-index:3;
+        }
+
+        /* Grain (subtil) para textura cinematográfica */
+        .hero-grain{
+            position:absolute;
+            inset:-40%;
+            z-index:4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+            opacity: 0.18;
+            mix-blend-mode: overlay;
+            pointer-events:none;
+            transform: rotate(8deg);
+        }
+
+        /* Conteúdo */
+        .hero-content{
+            position:relative;
+            z-index:10;
+            text-align:center;
+            padding: 0 1.25rem;
+            max-width: 900px;
+        }
+
+        .entrance-title{
+            color: #f5f1e8;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin: 0 auto 1.25rem;
+        }
+
+        /* Se for imagem, fica como já tinhas mas adaptado ao dark mood */
+        .hero--entrance .hero-logo-img{
+            max-width: 340px;
+            width: min(78vw, 340px);
+            filter: drop-shadow(0 18px 38px rgba(0,0,0,0.55));
+        }
+
+        .entrance-tagline{
+            color: rgba(245,241,232,0.82);
+            font-size: clamp(0.98rem, 1.2vw, 1.15rem);
+            letter-spacing: 0.04em;
+            font-weight: 300;
+            margin: 0 auto 1.75rem;
+            line-height: 1.6;
+        }
+
+        /* Botão “Enter” premium */
+        .entrance-btn{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            padding: 0.95rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(196,162,94,0.75);
+            color: rgba(245,241,232,0.92);
+            text-decoration:none;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+        }
+
+        .entrance-btn:hover{
+            transform: translateY(-1px);
+            background: rgba(196,162,94,0.12);
+            border-color: rgba(196,162,94,0.95);
+        }
+
+        .entrance-btn:focus{
+            outline: 2px solid rgba(196,162,94,0.45);
+            outline-offset: 4px;
+        }
+
+        /* Sequência de entrada (title -> tagline -> button) */
+        .entrance-step.is-hidden{
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .hero--entrance.is-title .entrance-title{
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 700ms ease, transform 700ms ease;
+        }
+
+        .hero--entrance.is-tagline .entrance-tagline{
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 700ms ease, transform 700ms ease;
+        }
+
+        .hero--entrance.is-enter .entrance-btn{
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 700ms ease, transform 700ms ease;
+        }
+
+        /* Responsivo */
+        @media (max-width: 640px){
+            .stack-img{
+                width: 94vw;
+                height: 68vh;
+                border-radius: 16px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce){
+            .stack-img, .entrance-step{
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* THE SPACE */
+        .space-section{
+            padding: 6.5rem 0;
+            background: #0b0b0b; /* mantém o mood intimista */
+        }
+
+        .space-grid{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 900px){
+            .space-grid{
+                grid-template-columns: 0.9fr 1.1fr;
+                gap: 3.5rem;
+            }
+        }
+
+        .space-copy{
+            color: rgba(245,241,232,0.92);
+        }
+
+        .space-kicker{
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: rgba(245,241,232,0.70);
+            margin-bottom: 0.75rem;
+        }
+
+        .space-title{
+            font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+            letter-spacing: 0.02em;
+            font-weight: 300;
+            margin: 0 0 1rem;
+        }
+
+        .space-subtitle{
+            max-width: 46ch;
+            line-height: 1.8;
+            color: rgba(245,241,232,0.75);
+            font-size: 1.05rem;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Media / Carousel */
+        .space-carousel{
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            min-height: 420px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            background: #111;
+        }
+
+        @media (max-width: 520px){
+            .space-carousel{ min-height: 360px; }
+        }
+
+        .space-slide{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.02);
+            transition: opacity 900ms ease, transform 1200ms ease;
+            filter: saturate(0.95) contrast(1.05);
+        }
+
+        .space-slide.is-active{
+            opacity: 1;
+            transform: scale(1.00);
+        }
+
+        /* overlay cinematográfico para consistência */
+        .space-overlay{
+            position:absolute;
+            inset:0;
+            background:
+                    radial-gradient(700px 420px at 50% 40%, rgba(0,0,0,0.18), rgba(0,0,0,0.72)),
+                    linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.25));
+            pointer-events: none;
+        }
+
+        /* moldura subtil “editorial” */
+        .space-frame{
+            position:absolute;
+            inset: 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(245,241,232,0.10);
+            pointer-events: none;
+        }
+
+        /* Controls */
+        .space-controls{
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            z-index: 5;
+        }
+
+        .space-nav{
+            border-radius: 999px;
+            border: 1px solid rgba(196,162,94,0.55);
+            background: rgba(0,0,0,0.20);
+            color: rgba(245,241,232,0.9);
+            padding: 0.55rem 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .space-nav:hover{
+            transform: translateY(-1px);
+            border-color: rgba(196,162,94,0.9);
+            background: rgba(196,162,94,0.12);
+        }
+
+        .space-dots{
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .space-dot{
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(245,241,232,0.35);
+            background: rgba(245,241,232,0.10);
+            padding: 0;
+            cursor: pointer;
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+        }
+
+        .space-dot.is-active{
+            background: rgba(196,162,94,0.75);
+            border-color: rgba(196,162,94,0.95);
+            transform: scale(1.15);
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce){
+            .space-slide{ transition: none !important; }
+        }
+
+        /* THE MANIFEST */
+        .manifest-section{
+            padding: 7rem 0;
+            background: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtil: “halo” dourado ao fundo, quase impercetível */
+        .manifest-section::before{
+            content:"";
+            position:absolute;
+            inset:-20%;
+            background:
+                    radial-gradient(700px 420px at 25% 30%, rgba(196,162,94,0.12), rgba(0,0,0,0)),
+                    radial-gradient(600px 380px at 75% 65%, rgba(196,162,94,0.10), rgba(0,0,0,0));
+            pointer-events:none;
+            opacity: 0.9;
+        }
+
+        .manifest-wrap{
+            position: relative;
+            z-index: 2;
+        }
+
+        .manifest-kicker{
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: rgba(245,241,232,0.65);
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+
+        .manifest-card{
+            max-width: 860px;
+            margin: 0 auto;
+            padding: clamp(1.6rem, 3vw, 2.5rem);
+            border-radius: 22px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(245,241,232,0.10);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+        }
+
+        .manifest-lead{
+            text-align: center;
+            font-size: clamp(1.35rem, 2vw, 1.75rem);
+            line-height: 1.45;
+            color: rgba(245,241,232,0.92);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.6rem;
+        }
+
+        .manifest-body{
+            text-align: center;
+            font-size: clamp(1.02rem, 1.15vw, 1.18rem);
+            line-height: 1.9;
+            color: rgba(245,241,232,0.78);
+            margin: 1.1rem auto;
+            max-width: 60ch;
+        }
+
+        .manifest-em{
+            color: rgba(245,241,232,0.96);
+            position: relative;
+        }
+
+        /* sublinhado discreto “marca” */
+        .manifest-em::after{
+            content:"";
+            position:absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.35rem;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(196,162,94,0), rgba(196,162,94,0.85), rgba(196,162,94,0));
+            opacity: 0.9;
+        }
+
+        .manifest-close{
+            margin-top: 1.6rem;
+            color: rgba(245,241,232,0.85);
+        }
+
+        .manifest-card::after{
+            content:"";
+            position:absolute;
+            inset:-40%;
+            background: radial-gradient(circle at 30% 40%, rgba(196,162,94,0.14), rgba(0,0,0,0) 45%);
+            transform: translateX(-12%);
+            opacity: 0;
+            pointer-events:none;
+        }
+
+        .fade-in-up.visible .manifest-card::after{
+            opacity: 1;
+            transition: opacity 1200ms ease;
+        }
+
+        /* THE MENU */
+        .menu-section{
+            padding: 7rem 0;
+            background: #0b0b0b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-section::before{
+            content:"";
+            position:absolute;
+            inset:-20%;
+            background:
+                    radial-gradient(760px 520px at 20% 25%, rgba(196,162,94,0.10), rgba(0,0,0,0)),
+                    radial-gradient(700px 460px at 80% 70%, rgba(196,162,94,0.08), rgba(0,0,0,0));
+            pointer-events:none;
+        }
+
+        .menu-header{
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto 2.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-kicker{
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: rgba(245,241,232,0.65);
+            margin-bottom: 0.9rem;
+        }
+
+        .menu-title{
+            font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+            font-weight: 300;
+            color: rgba(245,241,232,0.95);
+            margin: 0 0 0.85rem;
+        }
+
+        .menu-subtitle{
+            color: rgba(245,241,232,0.72);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin: 0 auto;
+        }
+
+        .menu-grid{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (min-width: 980px){
+            .menu-grid{
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1.4rem;
+            }
+        }
+
+        .menu-panel{
+            border-radius: 22px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(245,241,232,0.10);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 220ms ease, border-color 220ms ease;
+        }
+
+        .menu-panel:hover{
+            transform: translateY(-2px);
+            border-color: rgba(196,162,94,0.35);
+        }
+
+        .panel-head{
+            padding: 1.6rem 1.6rem 1.1rem;
+            border-bottom: 1px solid rgba(245,241,232,0.08);
+        }
+
+        .panel-head h3{
+            margin: 0 0 0.5rem;
+            font-weight: 400;
+            color: rgba(245,241,232,0.92);
+            letter-spacing: 0.02em;
+            font-size: 1.15rem;
+        }
+
+        .panel-head p{
+            margin: 0;
+            color: rgba(245,241,232,0.65);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .menu-items{
+            padding: 1.1rem 1.6rem 1.6rem;
+        }
+
+        .menu-item{
+            padding: 1.05rem 0;
+            border-bottom: 1px solid rgba(245,241,232,0.08);
+        }
+
+        .menu-item:last-child{
+            border-bottom: none;
+            padding-bottom: 0.25rem;
+        }
+
+        .item-top{
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .menu-item h4{
+            margin: 0;
+            font-weight: 400;
+            color: rgba(245,241,232,0.95);
+            letter-spacing: 0.01em;
+            font-size: 1.05rem;
+        }
+
+        .item-tag{
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245,241,232,0.65);
+            border: 1px solid rgba(245,241,232,0.16);
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.18);
+            white-space: nowrap;
+        }
+
+        .item-ing{
+            margin: 0.55rem 0 0.55rem;
+            color: rgba(245,241,232,0.62);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .item-note{
+            margin: 0;
+            color: rgba(245,241,232,0.78);
+            font-size: 0.98rem;
+            line-height: 1.75;
+        }
+
+        /* CTA */
+        .menu-cta{
+            margin-top: 2.4rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-cta-text{
+            margin: 0 0 0.9rem;
+            color: rgba(245,241,232,0.70);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .menu-full-btn{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.95rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(196,162,94,0.75);
+            color: rgba(245,241,232,0.92);
+            text-decoration: none;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+        }
+
+        .menu-full-btn:hover{
+            transform: translateY(-1px);
+            background: rgba(196,162,94,0.12);
+            border-color: rgba(196,162,94,0.95);
+        }
+
+        .menu-full-btn:focus{
+            outline: 2px solid rgba(196,162,94,0.45);
+            outline-offset: 4px;
+        }
+
+        /* Títulos das bebidas em Cormorant */
+        .menu-item h4{
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-weight: 500;
+            color: rgba(245,241,232,0.95);
+            letter-spacing: 0.02em;
+            font-size: 1.25rem; /* ligeiramente maior para “editorial” */
+            line-height: 1.2;
+        }
+
+        /* Meta (preço + tag) */
+        .item-meta{
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-price{
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245,241,232,0.82);
+            padding: 0.35rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid rgba(245,241,232,0.16);
+            background: rgba(0,0,0,0.18);
+            white-space: nowrap;
+        }
+
+        /* Mantém o tag como está, mas garante consistência ao lado do preço */
+        .item-tag{
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245,241,232,0.65);
+            border: 1px solid rgba(245,241,232,0.16);
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.18);
+            white-space: nowrap;
+        }
+
+        /* MOBILE: menos densidade, melhor leitura, menos “aperto” no topo */
+        @media (max-width: 640px){
+            .menu-header{
+                margin-bottom: 2rem;
+            }
+
+            .menu-grid{
+                gap: 1rem;
+            }
+
+            .panel-head{
+                padding: 1.25rem 1.25rem 0.95rem;
+            }
+
+            .menu-items{
+                padding: 0.95rem 1.25rem 1.25rem;
+            }
+
+            /* No mobile, em vez de “título de um lado / meta do outro”,
+               fazemos um layout em duas linhas: título em cima, preço+tag abaixo */
+            .item-top{
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+
+            .item-meta{
+                gap: 8px;
+                flex-wrap: wrap; /* evita quebrar mal */
+            }
+
+            .menu-item{
+                padding: 0.95rem 0;
+            }
+
+            .menu-item h4{
+                font-size: 1.35rem; /* mantém presença */
+            }
+
+            .item-ing{
+                font-size: 0.95rem;
+                margin: 0.5rem 0 0.55rem;
+            }
+
+            .item-note{
+                font-size: 0.98rem;
+                line-height: 1.75;
+            }
+
+            /* CTA com mais “thumb-friendly” */
+            .menu-full-btn{
+                width: 100%;
+                max-width: 420px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+        /* Scroll indicator como link */
+        .scroll-indicator{
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.06);
+            backdrop-filter: blur(8px);
+        }
+        .scroll-indicator:focus{
+            outline: 2px solid rgba(196,162,94,0.45);
+            outline-offset: 3px;
+        }
+
+        @keyframes bounce {
+            0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* SEÇÃO STORY */
+        .section-story{
+            padding: 6.5rem 0;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+
+        h2{
+            font-size: clamp(1.65rem, 2.2vw, 2.2rem);
+            letter-spacing: 0.02em;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .story-text{
+            max-width: 860px;
+            margin: 0.75rem auto 0;
+            font-size: clamp(1.05rem, 1.1vw, 1.2rem);
+            color: #3f3f3f;
+            line-height: 1.85;
+        }
+
+        .story-highlight{
+            color: var(--brand-color);
+            font-weight: 500;
+        }
+
+        /* LOCATIONS */
+        .locations-grid{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+            padding: 0;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px){
+            .locations-grid{ grid-template-columns: 1fr 1fr; }
+        }
+
+        .location-card{
+            background: #fff;
+            padding: 2.75rem 2.25rem;
+            text-align: center;
+            border: 1px solid var(--card-border);
+            transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+            border-radius: 18px;
+        }
+
+        /* detalhe de marca */
+        .location-card::before{
+            content:"";
+            position:absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(196,162,94,0.0), rgba(196,162,94,0.8), rgba(196,162,94,0.0));
+            opacity: 0;
+            transition: opacity 220ms ease;
+        }
+
+        .location-card:hover{
+            border-color: rgba(196,162,94,0.55);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.09);
+        }
+        .location-card:hover::before{ opacity: 1; }
+
+        .card-title{
+            font-size: 1.85rem;
+            margin-bottom: 0.65rem;
+            color: #111;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .card-address{
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Botão (garante consistência caso .btn esteja no style.css) */
+        .btn{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(196,162,94,0.6);
+            color: #1a1a1a;
+            transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+            text-decoration: none;
+        }
+        .btn:hover{
+            background: rgba(196,162,94,0.12);
+            border-color: rgba(196,162,94,0.9);
+            transform: translateY(-1px);
+        }
+        .btn:focus{
+            outline: 2px solid rgba(196,162,94,0.45);
+            outline-offset: 3px;
+        }
+
+        /* Footer */
+        footer{
+            padding: 4rem 1.25rem;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+
+        .social-link{
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 0.75rem;
+            color: #666;
+            text-decoration: none;
+        }
+        .social-link:hover{ color: var(--brand-color); }
+        .social-link:focus{
+            outline: 2px solid rgba(196,162,94,0.45);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
+
+        /* Animações de entrada */
+        .fade-in-up{
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 700ms ease, transform 700ms ease;
+        }
+        .fade-in-up.visible{
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* reduz movimento para quem prefere */
+        @media (prefers-reduced-motion: reduce){
+            .scroll-indicator{ animation: none; }
+            .fade-in-up{ transition: none; transform: none; opacity: 1; }
+        }
+    </style>
 
 </head>
-<body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
-<!-- LOGO HEADER -->
-<header class="p-3 flex justify-center">
-    <img src="paradox_logo.svg" alt="Paradox Logo" class="h-20">
-</header>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero hero--entrance" id="top">
+        <div class="hero-stack" aria-hidden="true">
+            <!-- “Molho” de fotos -->
+            <img class="stack-img img-1" src="images/21.jpeg" alt="">
+            <img class="stack-img img-2" src="images/2.jpeg" alt="">
+            <img class="stack-img img-3" src="images/22.jpeg" alt="">
+            <img class="stack-img img-4" src="images/15.jpeg" alt="">
+            <div class="hero-overlay"></div>
+            <div class="hero-grain"></div>
+        </div>
+
+        <div class="hero-content">
+            <!-- Podes usar logo SVG ou texto. Mantive logo + fallback -->
+            <img src="paradox_logo.svg" alt="The Paradox" class="hero-logo-img entrance-title entrance-step is-hidden">
+
+            <p class="entrance-tagline entrance-step is-hidden">
+                a calm, intimate lounge for after work &amp; late nights
+            </p>
+
+            <a href="#about" class="entrance-btn entrance-step is-hidden" aria-label="Enter and explore">
+                Enter
+            </a>
+        </div>
+    </header>
+
+    <!-- The Space Section -->
+    <section class="space-section" id="space">
+        <div class="container space-grid fade-in-up">
+            <div class="space-copy">
+                <p class="space-kicker">The Space</p>
+                <h2 class="space-title">This is where it happens.</h2>
+                <p class="space-subtitle">
+                    A private atmosphere, low light, and a bar program designed for after work and late nights.
+                </p>
+
+                <div class="space-actions">
+                    <a href="#locations" class="btn">Discover our spaces</a>
+                </div>
+            </div>
+
+            <div class="space-media" aria-label="Photos of the bar">
+                <div class="space-carousel" data-carousel>
+                    <!-- Substitui estas imagens por fotos reais do vosso bar -->
+                    <img class="space-slide is-active" src="images/1.jpeg" alt="Bar interior, warm lighting">
+                    <img class="space-slide" src="images/3.jpeg" alt="Cocktail bar counter with ambient light">
+                    <img class="space-slide" src="images/7.jpeg" alt="Elegant lounge seating area">
+                    <img class="space-slide" src="images/22.jpeg" alt="Close-up cocktail on bar top">
+
+                    <div class="space-overlay" aria-hidden="true"></div>
+                    <div class="space-frame" aria-hidden="true"></div>
+
+                    <div class="space-controls" aria-hidden="false">
+                        <button class="space-nav" type="button" data-prev aria-label="Previous photo">Prev</button>
+                        <div class="space-dots" data-dots aria-label="Photo navigation"></div>
+                        <button class="space-nav" type="button" data-next aria-label="Next photo">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifest Section -->
+    <section class="manifest-section" id="manifest">
+        <div class="container manifest-wrap fade-in-up">
+            <p class="manifest-kicker">The Manifest</p>
+
+            <div class="manifest-card">
+                <p class="manifest-lead">
+                    <span class="manifest-em">The Paradox is not a bar.</span><br>
+                    It is a pause.
+                </p>
+
+                <p class="manifest-body">
+                    A place between what you were<br>
+                    and what you become after midnight.
+                </p>
+
+                <p class="manifest-body">
+                    Here, silence is not empty.<br>
+                    It is intentional.
+                </p>
+
+                <p class="manifest-body">
+                    Time slows down.<br>
+                    Not to escape life —<br>
+                    but to return to it with sharper senses.
+                </p>
+
+                <p class="manifest-body">
+                    Every detail is a ritual:<br>
+                    the glass, the ice, the first sip,<br>
+                    the distance between songs,<br>
+                    the light that never asks for attention.
+                </p>
+
+                <p class="manifest-body">
+                    We believe in duality —<br>
+                    the familiar and the unexpected,<br>
+                    the warm and the precise,<br>
+                    the early conversation and the late confession.
+                </p>
+
+                <p class="manifest-body manifest-close">
+                    If you’re here, you’re not passing through.<br>
+                    <span class="manifest-em">You’re entering.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container fade-in-up">
+            <div class="menu-header">
+                <p class="menu-kicker">The Menu</p>
+                <h2 class="menu-title">A curated selection.</h2>
+                <p class="menu-subtitle">
+                    The signatures we’re known for, the classics we respect, and wines chosen for depth and elegance.
+                </p>
+            </div>
+
+            <div class="menu-grid">
+                <!-- SIGNATURE COCKTAILS -->
+                <article class="menu-panel">
+                    <header class="panel-head">
+                        <h3>Signature Cocktails</h3>
+                        <p>Designed to feel like a ritual—each one a mood.</p>
+                    </header>
+
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Passion Fruit Paradise</h4>
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Bright · Escapist</span>
+                            </div>
+                            <p class="item-ing">
+                                Vodka · Strawberry Vodka · Triple Sec · Passion Fruit
+                            </p>
+                            <p class="item-note">
+                                Tropical and luminous—made for soft laughter, warm lights, and the moment you decide to stay a little longer.
+                            </p>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Duality</h4>
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Fresh · Precise</span>
+                            </div>
+                            <p class="item-ing">
+                                Rum · Mint · Lemon · Orange Liqueur · Cardamom
+                            </p>
+                            <p class="item-note">
+                                Clean freshness with a quiet spice—balanced like a conversation that turns into something more.
+                            </p>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Contradiction</h4>
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Vibrant · Provocative</span>
+                            </div>
+                            <p class="item-ing">
+                                Cachaça · Cointreau · Passion Fruit · Lemon
+                            </p>
+                            <p class="item-note">
+                                Bright acidity with a bold soul—playful, sharp, and impossible to ignore after the first sip.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- CLASSIC COCKTAILS -->
+                <article class="menu-panel">
+                    <header class="panel-head">
+                        <h3>Elegant Classics</h3>
+                        <p>Timeless structures, served with intention.</p>
+                    </header>
+
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Negroni</h4>
+                                <span class="item-price">10</span>
+                                <span class="item-tag">Structured · Confident</span>
+                            </div>
+                            <p class="item-ing">
+                                Dry Gin · Campari · Sweet Vermouth
+                            </p>
+                            <p class="item-note">
+                                Bitter-sweet and composed—an unhurried drink for people who don’t need to be loud to be noticed.
+                            </p>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Moscow Mule</h4>
+                                <span class="item-price">11</span>
+                                <span class="item-tag">Crisp · Electric</span>
+                            </div>
+                            <p class="item-ing">
+                                Vodka · Lemon · Ginger Beer
+                            </p>
+                            <p class="item-note">
+                                Cold, clean, and lifted—like fresh air between chapters of the night.
+                            </p>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Pornstar Martini</h4>
+                                <span class="item-price">12</span>
+                                <span class="item-tag">Indulgent · Seductive</span>
+                            </div>
+                            <p class="item-ing">
+                                Vanilla Vodka · Passion Fruit · Lime · Prosecco
+                            </p>
+                            <p class="item-note">
+                                Velvet, exotic, and celebratory—dessert energy with a midnight edge.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- WINES -->
+                <article class="menu-panel">
+                    <header class="panel-head">
+                        <h3>Premium Wines</h3>
+                        <p>Selected for depth, texture, and a long finish.</p>
+                    </header>
+
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Rapazotes Grande Reserva 2019</h4>
+                                <span class="item-price">29</span>
+                                <span class="item-tag">Deep · Persistent</span>
+                            </div>
+                            <p class="item-ing">
+                                Touriga Nacional · Touriga Franca · Tinta Amarela
+                            </p>
+                            <p class="item-note">
+                                18 months (vertical press). Intense red fruit, cherry, plum, spices and cacao—balanced acidity, medium tannin, long and commanding finish.
+                            </p>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <h4>Rapazotes Arinto 2022</h4>
+                                <span class="item-price">24</span>
+                                <span class="item-tag">Mineral · Precise</span>
+                            </div>
+                            <p class="item-ing">
+                                Arinto
+                            </p>
+                            <p class="item-note">
+                                8 months in stainless steel. Citrus and green apple with high, clean acidity—floral, intensely mineral, fresh and persistent.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="menu-cta">
+                <p class="menu-cta-text">Ready to go deeper?</p>
+                <a class="menu-full-btn" href="menu-main.html">View full menu</a>
+                <!-- Se quiseres dois menus separados:
+                <div class="menu-cta-split">
+                  <a class="menu-full-btn" href="menu-main.html">Full Menu — Main</a>
+                  <a class="menu-full-btn" href="menu-expo.html">Full Menu — Expo</a>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
 
 
-<!-- ABAS DE NAVEGAÇÃO (mobile-first: scroll horizontal) -->
-  <nav class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b" style="border-color: var(--brand);">
-  <div
-    class="flex gap-2 overflow-x-auto no-scrollbar whitespace-nowrap px-2 py-1
-           md:overflow-visible md:whitespace-normal md:flex-wrap md:justify-center
-           md:max-w-4xl md:mx-auto"
-  >
-    <button class="tab-button active-tab flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="inicio">Início</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="cocktails">Cocktails</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="vinhos">Vinhos</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="drinks">Drinks</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="bebidas-leves">Bebidas Leves</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="petiscar">Petiscar</button>
-    <button class="tab-button flex-none md:flex-initial px-3 py-3 text-base rounded-md" data-tab="shisha">Shisha</button>
-  </div>
-</nav>
 
-<!-- SEÇÃO DE CONTEÚDO -->
-<main class="flex-1 p-4 relative text-center">
-	<!-- Inicio -->
-    <div id="inicio" class="tab-content active">
-      <h2 class="text-2xl font-bold text-center">Seja bem-vindo ao The Paradox</h2>
-      <div class="w-16 h-0.5 bg-[color:var(--brand)] my-3 mx-auto"></div>
-      <div class="max-w-prose mx-auto text-center space-y-3">
-        <p class="text-gray-700">Siga-nos no Instagram e partilhe o seu momento para receber <strong>um shot de oferta</strong>.</p>
-        <p class="text-sm text-gray-500">Mostre o post à nossa equipa no balcão.</p>
+    <!-- Narrative / About Section -->
+    <section class="section-story" id="about">
+        <div class="container text-center fade-in-up">
+            <h2>Uma Experiência Única</h2>
+            <div class="w-24 h-0.5 bg-[var(--brand-color)] mx-auto mb-8"></div>
+            <p class="story-text">
+                O <span class="story-highlight">The Paradox</span> não é apenas um bar, é um estado de espirito.
+                Nascido da vontade de criar momentos inesquecíveis, trazemos-lhe o melhor da mixologia moderna
+                combinada com uma atmosfera envolvente e sofisticada.
+            </p>
+            <p class="story-text">
+                Seja no coração da cidade ou na vibrante Expo, convidamo-lo a parar o tempo,
+                apreciar um cocktail de assinatura e deixar-se levar pela música e pelo ambiente.
+            </p>
+        </div>
+    </section>
 
-        <a href="https://instagram.com/theparadoxbar" target="_blank" rel="noopener"
-class="group inline-flex items-center justify-center gap-2 px-4 py-3 border rounded-full hover:bg-black hover:text-white transition text-base"
-style="border-color: var(--brand)">
-<img src="images/instagram.png" alt="Instagram" class="w-5 h-5 filter brightness-0 group-hover:invert"/>
-Seguir no Instagram
-</a>
-      </div>
-    </div>
 
-    <!-- Cocktails -->
-    <div id="cocktails" class="tab-content">
-        <!-- Cocktails de Assinatura -->
-        <h2 class="text-2xl font-bold">Cocktails de Assinatura</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amberlie</span> <span
-                    class="text-gray-800">11</span></h3>
-                <p class="text-gray-600 text-xs">Bourbon, disaronno, limão, angostura, fee foam</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bruma</span> <span
-                    class="text-gray-800">11</span></h3>
-                <p class="text-gray-600 text-xs">Gin ervilha, licor beirão, limão, canela, cardamomo, angostura</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Fyrra</span> <span
-                    class="text-gray-800">12</span></h3>
-                <p class="text-gray-600 text-xs">Tequila, triple sec, licor de chile, lima, agave, pimenta</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Paramule</span> <span
-                    class="text-gray-800">13</span></h3>
-                <p class="text-gray-600 text-xs">Vodka ervilha, ginger beer, limão, beterraba, toranja, lima</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Passion Fruit Paradise</span> <span
-                    class="text-gray-800">12</span></h3>
-                <p class="text-gray-600 text-xs">Vodka, vodka morango, triple sec, maracujá</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Velora</span> <span
-                    class="text-gray-800">12</span></h3>
-                <p class="text-gray-600 text-xs">Rum, manjericão roxo, limão, alecrim, cardamomo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Xantho</span> <span
-                    class="text-gray-800">13</span></h3>
-                <p class="text-gray-600 text-xs">Mezcal, limão, toranja</p></li>
-        </ul>
-        <!-- Cocktails Clássicos -->
-        <h2 class="text-2xl font-bold mt-6">Cocktails Classicos</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cosmopolitan</span> <span
-                    class="text-gray-800">8</span></h3>
-                <p class="text-gray-600 text-xs">Vodka, triple sec, cranberry, limão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Daiquiri</span> <span
-                    class="text-gray-800">8</span></h3>
-                <p class="text-gray-600 text-xs">Rum, limão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Dry Martini</span> <span
-                    class="text-gray-800">8</span></h3>
-                <p class="text-gray-600 text-xs">Gin seco, vermute seco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Expresso Martini</span> <span
-                    class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Vodka, licor de café, café</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Negroni</span> <span
-                    class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Gin seco, campari, vermute doce</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pisco Sour</span> <span
-                    class="text-gray-800">10</span></h3>
-                <p class="text-gray-600 text-xs">Pisco, limão, clara de ovo (há opção vegan)</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pornstar Martini</span> <span
-                    class="text-gray-800">10</span></h3>
-                <p class="text-gray-600 text-xs">Vodka, baunilha, maracujá, prosecco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Whiskey Sour</span> <span
-                    class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Whiskey, limão, clara de ovo (há opção vegan)</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Moscow Mule</span> <span
-                    class="text-gray-800">10</span></h3>
-                <p class="text-gray-600 text-xs">Vodka, limão, ginger beer (com chili +1)</p></li>
-        </ul>
-        <!-- Mocktails -->
-        <h2 class="text-2xl font-bold mt-6">Mocktails</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tincture</span> <span
-                    class="text-gray-800">6</span></h3>
-                <p class="text-gray-600 text-xs">Limão, toranja, beterraba, alecrim, cardamomo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Twist</span> <span class="text-gray-800">6</span>
-            </h3>
-                <p class="text-gray-600 text-xs">Lima, toranja, agave, tabasco</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Mojito</span> <span class="text-gray-800">4</span>
-            </h3>
-                <p class="text-gray-600 text-xs">Lima, água com gás, pêssego</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Mojito Sabores</span> <span class="text-gray-800">5</span>
-            </h3>
-                <p class="text-gray-600 text-xs">Lima, água com gás, sabor à escolha</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Caipirinha</span> <span
-                    class="text-gray-800">4</span></h3>
-                <p class="text-gray-600 text-xs">Lima, sumo de limão, pêssego</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Virgin Caipirinha Sabores</span> <span
-                    class="text-gray-800">5</span></h3>
-                <p class="text-gray-600 text-xs">Lima, sumo de limão, sabor à escolha</p></li>
-        </ul>
-    </div>
-    <!-- Vinhos -->
-    <div id="vinhos" class="tab-content">
-        <h2 class="text-2xl font-bold">Vinhos</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
+    <!-- Locations Section -->
+    <section class="bg-[#fafafa] py-20" id="locations">
+        <div class="container fade-in-up">
+            <h2 class="text-center mb-12">Os Nossos Espaços</h2>
 
-        <!-- Tintos -->
-        <h3 class="text-xl font-bold mt-6">Tintos</h3>
-        <ul class="space-y-4 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">45</span></h3>
-                <p class="text-gray-600 text-xs">Colheita selecionada, Douro</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">28</span></h3>
-                <p class="text-gray-600 text-xs">Grande reserva, Douro</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Ânfora</span> <span class="text-gray-800">28</span></h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">HDL, Touriga Nacional</span> <span class="text-gray-800">25</span></h3>
-                <p class="text-gray-600 text-xs">Alentejo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Syrah</span> <span class="text-gray-800">7 / 20</span></h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
-                <p class="text-gray-600 text-xs">Douro</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">15</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p></li>
-        </ul>
-        <!-- Brancos -->
-        <h3 class="text-xl font-bold mt-6">Brancos</h3>
-        <ul class="space-y-4 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">25</span></h3>
-                <p class="text-gray-600 text-xs">Violeta, Douro</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Rapazotes</span> <span class="text-gray-800">23</span></h3>
-                <p class="text-gray-600 text-xs">Arinto, Douro</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Portal da Estrela</span> <span class="text-gray-800">4 / 15</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Serpa Antão Vaz</span> <span class="text-gray-800">7 / 20</span></h3>
-                <p class="text-gray-600 text-xs">Encostas de Serpa, Alentejo</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Renascido Serra da Estrela</span> <span class="text-gray-800">32</span></h3>
-                <p class="text-gray-600 text-xs">Dão</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Britango</span> <span class="text-gray-800">4 / 15</span></h3>
-                <p class="text-gray-600 text-xs">Douro</p></li>
-        </ul>
-        <!-- Rosés -->
-        <h3 class="text-xl font-bold mt-6">Rosés</h3>
-        <ul class="space-y-4 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">HDL Rosé</span> <span class="text-gray-800">6 / 18</span></h3>
-                <p class="text-gray-600 text-xs">Alentejo</p></li>
-        </ul>
-        <!-- Sangrias -->
-        <h2 class="text-2xl font-bold mt-6">Sangrias</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Frutos Vermelhos</span> <span
-                    class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sangria Espumante Maracujá</span> <span
-                    class="text-gray-800">16 / 28</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Copo de Sangria de Espumante</span> <span
-                    class="text-gray-800">6</span></h3></li>
-        </ul>
-    </div>
-    <!-- Drinks -->
-    <div id="drinks" class="tab-content">
-        <h2 class="text-2xl font-bold">Drinks</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
+            <div class="locations-grid">
+                <!-- Location 1: Main (The Paradox) -->
+                <article class="location-card group">
+                    <h3 class="card-title">The Paradox</h3>
+                    <p class="card-address">Lisboa Centro</p>
+                    <p class="text-gray-600 mb-8 px-4">
+                        Onde tudo começou. Um ambiente intimista perfeito para conversas longas e noites memoráveis.
+                    </p>
+                    <a href="menu-main.html" class="btn">Ver Menu</a>
+                </article>
 
-        <!-- Cervejas e Sidras -->
-        <h3 class="text-xl font-bold mt-6">Cervejas e Sidras</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Sagres 0,20l</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Imperial Heineken 0,25l</span> <span
-                    class="text-gray-800">2,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Sagres</span> <span class="text-gray-800">3,50</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caneca Heineken</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bandida do Pomar 0,25l</span> <span
-                    class="text-gray-800">3</span></h3></li>
-        </ul>
+                <!-- Location 2: Expo -->
+                <article class="location-card group">
+                    <h3 class="card-title">The Paradox <span class="text-lg block mt-1 opacity-70">Expo</span></h3>
+                    <p class="card-address">Parque das Nações</p>
+                    <p class="text-gray-600 mb-8 px-4">
+                        Modernidade e frescura junto ao rio. O local ideal para um sunset ou um after-work relaxado.
+                    </p>
+                    <a href="menu-expo.html" class="btn">Ver Menu</a>
+                </article>
+            </div>
+        </div>
+    </section>
 
-        <!-- Vodkas -->
-        <h3 class="text-xl font-bold mt-6">Vodkas</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Eristoff</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Morango</span> <span class="text-gray-800">7</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Vodka Preta</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Belvedere</span> <span
-                    class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Grey Goose</span> <span
-                    class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Citron</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Absolut Vanilla</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span
-                    class="text-gray-800">10</span></h3></li>
-        </ul>
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-600">
+        <img src="paradox_logo.svg" alt="Logo"
+            class="h-12 mx-auto mb-6 opacity-80 hover:opacity-100 transition-all duration-500">
 
-        <!-- Gins -->
-        <h3 class="text-xl font-bold mt-6">Gins</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beefeater Pink</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bombay Sapphire</span> <span
-                    class="text-gray-800">9</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Tanqueray</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Gin Mare</span> <span
-                    class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Monkey 47</span> <span
-                    class="text-gray-800">16</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Hendricks</span> <span
-                    class="text-gray-800">11</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">G’Vine</span> <span
-                    class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nadar</span> <span
-                    class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Nordés</span> <span
-                    class="text-gray-800">12</span></h3></li>
-        </ul>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
+            <a href="https://instagram.com/theparadoxbar" target="_blank" class="social-link">
+                <img src="instagram.png" alt="Instagram" class="w-5 h-5 opacity-60 hover:opacity-100 transition">
+                <span>@theparadoxbar</span>
+            </a>
+            <span class="hidden md:inline text-gray-800">|</span>
+            <a href="#" class="social-link">Política de Privacidade</a>
+            <span class="hidden md:inline text-gray-800">|</span>
+            <a href="#" class="social-link">Livro de Reclamações</a>
+        </div>
 
-        <!-- Whiskeys -->
-        <h3 class="text-xl font-bold mt-6">Whiskeys</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Macallan</span> <span
-                    class="text-gray-800">15</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jameson</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bushmills</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Label</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Black Label</span> <span
-                    class="text-gray-800">10</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Famous Grouse</span> <span class="text-gray-800">7</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jack Daniels</span> <span
-                    class="text-gray-800">9</span></h3></li>
-        </ul>
+        <p>&copy; 2024 The Paradox. Todos os direitos reservados.</p>
+    </footer>
 
-        <!-- Bourbon -->
-        <h3 class="text-xl font-bold mt-6">Bourbon</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Jim Bean</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Four Roses</span> <span
-                    class="text-gray-800">10</span></h3></li>
-        </ul>
+    <script>
+        // Simple Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            };
 
-        <!-- Tequilla -->
-        <h3 class="text-xl font-bold mt-6">Tequilla</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Patron</span> <span
-                    class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Sierra</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Don Diego</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Olmeca Chocolate</span> <span
-                    class="text-gray-800">8</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Clase Azul Plata</span> <span
-                    class="text-gray-800">24</span></h3></li>
-        </ul>
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        <!-- Mezcal -->
-        <h3 class="text-xl font-bold mt-6">Mezcal</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal Únion</span> <span class="text-gray-800">13</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Mezcal San Cosme</span> <span
-                    class="text-gray-800">11</span></h3></li>
-        </ul>
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => observer.observe(el));
+        });
 
-        <!-- Rum -->
-        <h3 class="text-xl font-bold mt-6">Rum</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Bacardi</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 3 Anos</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Havana Club 7 Anos</span> <span
-                    class="text-gray-800">11</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Diplomatic</span> <span
-                    class="text-gray-800">12</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Barceló</span> <span
-                    class="text-gray-800">7</span></h3></li>
-        </ul>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('.hero--entrance');
+            if (!hero) return;
 
-        <!-- Licores -->
-        <h3 class="text-xl font-bold mt-6">Licores</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Beirão</span> <span
-                    class="text-gray-800">5</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Amêndoa Amarga</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Martini</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Moscatel</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Baileys</span> <span
-                    class="text-gray-800">6</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Aperol</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cointreau</span> <span
-                    class="text-gray-800">9</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Malibu</span> <span
-                    class="text-gray-800">6</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Campari</span> <span
-                    class="text-gray-800">7</span></h3></li>
-        </ul>
-    </div>
-    <!-- Bebidas Leves -->
-    <div id="bebidas-leves" class="tab-content">
-        <h2 class="text-2xl font-bold">Bebidas Leves</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
+            // Marca a hero como pronta (para revelar as fotos)
+            requestAnimationFrame(() => hero.classList.add('is-ready'));
 
-        <!-- Cafetaria -->
-        <h3 class="text-xl font-bold mt-6">Cafetaria</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Café</span> <span class="text-gray-800">1</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Descafeinado</span> <span
-                    class="text-gray-800">1</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Chá</span> <span
-                    class="text-gray-800">1,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Carioca Limão</span> <span class="text-gray-800">1,50</span>
-            </h3></li>
-        </ul>
+            // Sequência
+            const titleDelay = 150;      // aparece quase imediatamente
+            const taglineDelay = 1400;   // 1.4s depois (ajusta para 1000-2000ms)
+            const enterDelay = 2400;     // mais 1s depois
 
-        <!-- Águas -->
-        <h3 class="text-xl font-bold mt-6">Águas</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água 0,50l</span> <span class="text-gray-800">1,50</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Castelo</span> <span class="text-gray-800">1,50</span>
-            </h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água das Pedras</span> <span
-                    class="text-gray-800">1,80</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pedras de Sabores</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Água Tónica</span> <span
-                    class="text-gray-800">3</span></h3></li>
-        </ul>
+            setTimeout(() => hero.classList.add('is-title'), titleDelay);
+            setTimeout(() => hero.classList.add('is-tagline'), taglineDelay);
+            setTimeout(() => hero.classList.add('is-enter'), enterDelay);
 
-        <!-- Refrigerantes -->
-        <h3 class="text-xl font-bold mt-6">Refrigerantes</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Coca‑Cola Zero</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ice Tea</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Ginger Ale</span> <span
-                    class="text-gray-800">2</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Red Bull</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Compal</span> <span
-                    class="text-gray-800">2</span></h3></li>
-        </ul>
-    </div>
-    <!-- Petiscos -->
-    <div id="petiscar" class="tab-content">
-        <h2 class="text-2xl font-bold">Para Pesticar</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-
-        <!-- Tábuas -->
-        <!-- Tábuas -->
-        <h3 class="text-xl font-bold mt-6">Tábuas</h3>
-        <ul class="space-y-4 mt-3">
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Queijos</span> <span
-                        class="text-gray-800">10 / 16</span></h3>
-                <p class="text-gray-600 text-xs">Diversos tipos de queijo, queijo da serra amanteigado, frutos secos,
-                    uvas, manteiga, cesta de pão</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua de Enchidos</span> <span
-                        class="text-gray-800">10 / 16</span></h3>
-                <p class="text-gray-600 text-xs">Presunto, salpicão, cachaço, chouriço preto, chouriço assado, uvas,
-                    frutos secos, cesta de pão</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tábua Paradox</span> <span class="text-gray-800">12 / 19</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Mix de queijos e enchidos, presunto, uvas, frutos secos, cesta de
-                    pão</p>
-            </li>
-        </ul>
-
-        <!-- Sandes -->
-        <h3 class="text-xl font-bold mt-6">Sandes</h3>
-        <ul class="space-y-4 mt-3">
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Enchidos</span> <span
-                        class="text-gray-800">8,50</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco com mix de enchidos, acompanhado por
-                    batatas fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes de Lombinhos de Porco</span> <span
-                        class="text-gray-800">7</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo, salada e
-                    batatas fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Lombinhos Paradox</span> <span
-                        class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, lombinhos de porco, queijo da serra,
-                    presunto, salada e batatas fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Sandes Paradox</span> <span
-                        class="text-gray-800">6</span></h3>
-                <p class="text-gray-600 text-xs">Pão de Rio Maior ou bolo do caco, presunto, queijo da serra e batatas
-                    fritas</p>
-            </li>
-        </ul>
-
-        <!-- Hambúrgueres -->
-        <h3 class="text-xl font-bold mt-6">Hambúrgueres</h3>
-        <ul class="space-y-4 mt-3">
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Cheese Burger</span> <span class="text-gray-800">7</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, alface,
-                    tomate, cebola frita</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">X Burger</span> <span
-                        class="text-gray-800">9</span></h3>
-                <p class="text-gray-600 text-xs">Hambúrguer em pão brioche ou bolo do caco, com queijo cheddar, fiambre,
-                    bacon, cebola frita, alface, tomate e batatas fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Paradox Burger</span> <span
-                        class="text-gray-800">11</span></h3>
-                <p class="text-gray-600 text-xs">Hambúrguer de picanha em pão brioche, com queijo da serra, presunto,
-                    ovo, salada, cebola frita e batatas fritas</p>
-            </li>
-        </ul>
-
-        <!-- Tostas -->
-        <h3 class="text-xl font-bold mt-6">Tostas</h3>
-        <ul class="space-y-4 mt-3">
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Mista</span> <span
-                        class="text-gray-800">7</span></h3>
-                <p class="text-gray-600 text-xs">Pão saloio com queijo, fiambre, manteiga, orégãos e batatas fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta de Atum</span> <span class="text-gray-800">8</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Pão saloio com atum, queijo, alface, tomate, orégãos e batatas
-                    fritas</p>
-            </li>
-            <li>
-                <h3 class="font-semibold"><span class="text-[#C4A25E]">Tosta Paradox</span> <span class="text-gray-800">9</span>
-                </h3>
-                <p class="text-gray-600 text-xs">Pão saloio com queijo da serra, presunto, salada e batatas fritas</p>
-            </li>
-        </ul>
-
-        <!-- Outros Petiscos -->
-        <h3 class="text-xl font-bold mt-6">Outros Petiscos</h3>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Cesto de Pão Extra</span> <span
-                    class="text-gray-800">2 / 2,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Batatas Fritas</span> <span
-                    class="text-gray-800">3,50</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Pão de Alho</span> <span
-                    class="text-gray-800">4</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Asas de Frango</span> <span
-                    class="text-gray-800">7</span></h3></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Caracóis</span> <span
-                    class="text-gray-800">6.5</span></h3></li>
-        </ul>
-    </div>
-    <!-- Shishas -->
-    <div id="shisha" class="tab-content">
-        <h2 class="text-2xl font-bold">Shishas</h2>
-        <div class="w-16 h-0.5 bg-[#C4A25E] my-3 mx-auto"></div>
-        <ul class="space-y-3 mt-3">
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Shisha</span> <span
-                    class="text-gray-800">20</span></h3>
-                <p class="text-gray-600 text-xs">Love 66, Mi amor ou Felicita</p></li>
-            <li><h3 class="font-semibold"><span class="text-[#C4A25E]">Recarga</span> <span
-                    class="text-gray-800">8,5</span></h3>
-        </ul>
-    </div>
-</main>
-
-<!-- Rodapé -->
-<footer class="mt-8 text-center">
-    <div class="w-full h-[1px] bg-[#C4A25E] my-3"></div>
-    <p class="text-gray-600 text-xs mb-3">Preço em euros com IVA incluído à taxa em vigor</p>
-</footer>
-
-<script>
-    const buttons = document.querySelectorAll('.tab-button');
-    const contents = document.querySelectorAll('.tab-content');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', e => {
-            const tab = e.currentTarget.getAttribute('data-tab');
-            buttons.forEach(b => b.classList.remove('active-tab'));
-            e.currentTarget.classList.add('active-tab');
-            contents.forEach(content => {
-                content.classList.toggle('active', content.id === tab);
+            // Scroll suave no Enter (se o browser não suportar, cai no normal)
+            const enterBtn = hero.querySelector('.entrance-btn');
+            enterBtn?.addEventListener('click', (e) => {
+                const target = document.querySelector('#about');
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-    });
-</script>
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('[data-carousel]');
+            if (!carousel) return;
+
+            const slides = Array.from(carousel.querySelectorAll('.space-slide'));
+            const dotsWrap = carousel.querySelector('[data-dots]');
+            const prevBtn = carousel.querySelector('[data-prev]');
+            const nextBtn = carousel.querySelector('[data-next]');
+
+            if (!slides.length || !dotsWrap) return;
+
+            // Create dots
+            const dots = slides.map((_, idx) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'space-dot' + (idx === 0 ? ' is-active' : '');
+                b.setAttribute('aria-label', `Go to photo ${idx + 1}`);
+                b.addEventListener('click', () => goTo(idx));
+                dotsWrap.appendChild(b);
+                return b;
+            });
+
+            let index = slides.findIndex(s => s.classList.contains('is-active'));
+            if (index < 0) index = 0;
+
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const intervalMs = 3800; // suave, “luxury pacing”
+            let timer = null;
+            let isPaused = false;
+
+            function setActive(i){
+                slides.forEach((s, k) => s.classList.toggle('is-active', k === i));
+                dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+                index = i;
+            }
+
+            function goTo(i){
+                const nextIndex = (i + slides.length) % slides.length;
+                setActive(nextIndex);
+                restart();
+            }
+
+            function next(){ goTo(index + 1); }
+            function prev(){ goTo(index - 1); }
+
+            prevBtn?.addEventListener('click', prev);
+            nextBtn?.addEventListener('click', next);
+
+            // Auto-play (only if not reduced motion)
+            function start(){
+                if (prefersReduced) return;
+                if (timer) clearInterval(timer);
+                timer = setInterval(() => {
+                    if (!isPaused) next();
+                }, intervalMs);
+            }
+
+            function stop(){
+                if (timer) clearInterval(timer);
+                timer = null;
+            }
+
+            function restart(){
+                stop();
+                start();
+            }
+
+            // Pause on hover/focus
+            carousel.addEventListener('mouseenter', () => { isPaused = true; });
+            carousel.addEventListener('mouseleave', () => { isPaused = false; });
+            carousel.addEventListener('focusin', () => { isPaused = true; });
+            carousel.addEventListener('focusout', () => { isPaused = false; });
+
+            // Start only when visible (clean + performance)
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) start();
+                    else stop();
+                });
+            }, { threshold: 0.25 });
+
+            io.observe(carousel);
+        });
+    </script>
 </body>
+
 </html>
-
-
-

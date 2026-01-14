@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Paradox - Restaurantes & Cocktail Bars</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero {
+            height: 100vh;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Placeholder for video/image background */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            /* Reduced opacity for light theme */
+            /* Light gradient */
+            background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(250, 250, 250, 1) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hero-logo-img {
+            max-width: 300px;
+            width: 80%;
+            margin-bottom: 2rem;
+            /* Invert drop shadow or make it subtle dark */
+            filter: drop-shadow(0 0 20px rgba(196, 162, 94, 0.2));
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .section-story {
+            padding: 8rem 2rem;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+
+        .story-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.25rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+
+        .story-highlight {
+            color: var(--brand-color);
+            font-family: 'Marquette', serif;
+            font-size: 1.3em;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .locations-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .location-card {
+            background: #ffffff;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid #e5e5e5;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .location-card:hover {
+            border-color: var(--brand-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .card-address {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            border-top: 1px solid #e5e5e5;
+            background-color: #fafafa;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+            color: #666;
+        }
+
+        .social-link:hover {
+            color: var(--brand-color);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Hero Section -->
+<header class="hero">
+    <div class="hero-bg">
+        <!-- Ideally a video or high quality atmosphere image goes here -->
+        <img src="https://images.unsplash.com/photo-1514362545857-3bc16549766b?q=80&w=2070&auto=format&fit=crop"
+             alt="Background" class="w-full h-full object-cover">
+    </div>
+
+    <div class="hero-content fade-in-up">
+        <img src="paradox_logo.svg" alt="The Paradox" class="hero-logo-img">
+        <h1 class="text-xl md:text-2xl text-[var(--brand-color)] tracking-widest uppercase font-light mt-4">
+            Restaurante & Cocktail Bar</h1>
+    </div>
+
+    <div class="scroll-indicator">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-color)" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+        </svg>
+    </div>
+</header>
+
+<!-- Narrative / About Section -->
+<section class="section-story" id="about">
+    <div class="container text-center fade-in-up">
+        <h2>Uma Experiência Única</h2>
+        <div class="w-24 h-0.5 bg-[var(--brand-color)] mx-auto mb-8"></div>
+        <p class="story-text">
+            O <span class="story-highlight">The Paradox</span> não é apenas um bar, é um estado de espirito.
+            Nascido da vontade de criar momentos inesquecíveis, trazemos-lhe o melhor da mixologia moderna
+            combinada com uma atmosfera envolvente e sofisticada.
+        </p>
+        <p class="story-text">
+            Seja no coração da cidade ou na vibrante Expo, convidamo-lo a parar o tempo,
+            apreciar um cocktail de assinatura e deixar-se levar pela música e pelo ambiente.
+        </p>
+    </div>
+</section>
+
+<!-- Locations Section -->
+<section class="bg-[#fafafa] py-20" id="locations">
+    <div class="container fade-in-up">
+        <h2 class="text-center mb-12">Os Nossos Espaços</h2>
+
+        <div class="locations-grid">
+            <!-- Location 1: Main (The Paradox) -->
+            <article class="location-card group">
+                <h3 class="card-title">The Paradox</h3>
+                <p class="card-address">Lisboa Centro</p>
+                <p class="text-gray-600 mb-8 px-4">
+                    Onde tudo começou. Um ambiente intimista perfeito para conversas longas e noites memoráveis.
+                </p>
+                <a href="menu-main.html" class="btn">Ver Menu</a>
+            </article>
+
+            <!-- Location 2: Expo -->
+            <article class="location-card group">
+                <h3 class="card-title">The Paradox <span class="text-lg block mt-1 opacity-70">Expo</span></h3>
+                <p class="card-address">Parque das Nações</p>
+                <p class="text-gray-600 mb-8 px-4">
+                    Modernidade e frescura junto ao rio. O local ideal para um sunset ou um after-work relaxado.
+                </p>
+                <a href="menu-expo.html" class="btn">Ver Menu</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center text-sm text-gray-600">
+    <img src="paradox_logo.svg" alt="Logo"
+         class="h-12 mx-auto mb-6 opacity-80 hover:opacity-100 transition-all duration-500">
+
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
+        <a href="https://instagram.com/theparadoxbar" target="_blank" class="social-link">
+            <img src="instagram.png" alt="Instagram" class="w-5 h-5 opacity-60 hover:opacity-100 transition">
+            <span>@theparadoxbar</span>
+        </a>
+        <span class="hidden md:inline text-gray-800">|</span>
+        <a href="#" class="social-link">Política de Privacidade</a>
+        <span class="hidden md:inline text-gray-800">|</span>
+        <a href="#" class="social-link">Livro de Reclamações</a>
+    </div>
+
+    <p>&copy; 2024 The Paradox. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    // Simple Intersection Observer for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const elements = document.querySelectorAll('.fade-in-up');
+        elements.forEach(el => observer.observe(el));
+    });
+</script>
+</body>
+
+</html>
