@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Paradox — Expo | Cocktail Bar & Lounge</title>
+    <meta name="description" content="A calm, intimate lounge for after work & late nights. Signature cocktails, elegant classics and premium wines — Parque das Nações. Open Thu–Sun, 18:00–02:00.">
+
+    <link rel="canonical" href="https://theparadox.pt/expo.html">
+
+    <meta name="robots" content="index,follow">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="The Paradox">
+    <meta property="og:title" content="The Paradox — Expo | Cocktail Bar & Lounge">
+    <meta property="og:description" content="A calm, intimate lounge for after work & late nights — Parque das Nações. Thu–Sun, 18:00–02:00.">
+    <meta property="og:url" content="https://theparadox.pt/expo.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_PT">
+
+    <!-- OG Image (usar JPG/PNG 1200x630) -->
+    <meta property="og:image" content="https://theparadox.pt/og/expo-1200x630.jpg">
+    <meta property="og:image:secure_url" content="https://theparadox.pt/og/expo-1200x630.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Paradox — Expo | Cocktail Bar & Lounge">
+    <meta name="twitter:description" content="A calm, intimate lounge for after work & late nights — Parque das Nações. Thu–Sun, 18:00–02:00.">
+    <meta name="twitter:image" content="https://theparadox.pt/og/expo-1200x630.jpg">
+
+    <!-- Icons -->
+<!--    <link rel="icon" href="/favicon.ico" sizes="any">-->
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#0b0b0b">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BarOrPub",
+            "name": "The Paradox - Expo",
+            "url": "https://theparadox.pt/expo.html",
+            "image": "https://theparadox.pt/og/expo-1200x630.jpg",
+            "description": "A calm, intimate lounge for after work & late nights. Signature cocktails, elegant classics and premium wines.",
+            "priceRange": "€€",
+            "servesCuisine": ["Cocktails", "Wine", "Bar Snacks"],
+            "hasMenu": "https://theparadox.pt/menu/expo.html",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Alameda dos Oceanos 13E",
+                "postalCode": "1990-197",
+                "addressLocality": "Lisboa",
+                "addressCountry": "PT"
+            },
+            "openingHoursSpecification": [{
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Thursday","Friday","Saturday","Sunday"],
+                "opens": "18:00",
+                "closes": "02:00"
+            }],
+            "sameAs": ["https://instagram.com/theparadoxbar"]
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="main.js" defer></script>
+
+</head>
+
+<body>
+
+<!-- Hero Section -->
+<header class="hero hero--entrance" id="top">
+    <div class="hero-stack" aria-hidden="true">
+        <!-- “Molho” de fotos -->
+        <img class="stack-img img-1" src="images/21.jpeg" alt="">
+        <img class="stack-img img-2" src="images/2.jpeg" alt="">
+        <img class="stack-img img-3" src="images/22.jpeg" alt="">
+        <img class="stack-img img-4" src="images/15.jpeg" alt="">
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+    </div>
+
+    <div class="hero-content">
+        <!-- Podes usar logo SVG ou texto. Mantive logo + fallback -->
+        <img src="images/logo/paradox_logo.svg"
+             alt="The Paradox"
+             class="hero-logo-img entrance-title entrance-step is-hidden logo-white">
+
+        <p class="entrance-tagline entrance-step is-hidden">
+            a calm, intimate lounge for after work &amp; late nights
+        </p>
+
+        <a href="#space" class="entrance-btn entrance-step is-hidden" aria-label="Enter and explore">
+            Enter
+        </a>
+    </div>
+</header>
+
+<!-- The Space Section -->
+<section class="space-section" id="space">
+    <div class="container space-grid fade-in-up">
+        <div class="space-copy">
+            <p class="space-kicker">The Space</p>
+            <h2 class="space-title">This is where it happens.</h2>
+            <p class="space-subtitle">
+                A private atmosphere, low light, and a bar program designed for after work and late nights.
+            </p>
+
+            <div class="space-actions">
+                <a href="#menu" class="btn text-white">Discover our suggestions</a>
+            </div>
+        </div>
+
+        <div class="space-media" aria-label="Photos of the bar">
+            <div class="space-carousel" data-carousel>
+                <!-- Substitui estas imagens por fotos reais do vosso bar -->
+                <img class="space-slide is-active" src="images/1.jpeg" alt="Bar interior, warm lighting">
+                <img class="space-slide" src="images/3.jpeg" alt="Cocktail bar counter with ambient light">
+                <img class="space-slide" src="images/7.jpeg" alt="Elegant lounge seating area">
+                <img class="space-slide" src="images/22.jpeg" alt="Close-up cocktail on bar top">
+
+                <div class="space-overlay" aria-hidden="true"></div>
+                <div class="space-frame" aria-hidden="true"></div>
+
+                <div class="space-controls" aria-hidden="false">
+                    <button class="space-nav" type="button" data-prev aria-label="Previous photo">Prev</button>
+                    <div class="space-dots" data-dots aria-label="Photo navigation"></div>
+                    <button class="space-nav" type="button" data-next aria-label="Next photo">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Manifest Section -->
+<section class="manifest-section" id="manifest">
+    <div class="container manifest-wrap fade-in-up">
+        <p class="manifest-kicker">The Manifest</p>
+
+        <div class="manifest-card">
+            <p class="manifest-lead">
+                <span class="manifest-em">The Paradox is not a bar.</span><br>
+                It is a pause.
+            </p>
+
+            <p class="manifest-body">
+                A place between what you were<br>
+                and what you become after midnight.
+            </p>
+
+            <p class="manifest-body">
+                Here, silence is not empty.<br>
+                It is intentional.
+            </p>
+
+            <p class="manifest-body">
+                Time slows down.<br>
+                Not to escape life —<br>
+                but to return to it with sharper senses.
+            </p>
+
+            <p class="manifest-body">
+                Every detail is a ritual:<br>
+                the glass, the ice, the first sip,<br>
+                the distance between songs,<br>
+                the light that never asks for attention.
+            </p>
+
+            <p class="manifest-body">
+                We believe in duality —<br>
+                the familiar and the unexpected,<br>
+                the warm and the precise,<br>
+                the early conversation and the late confession.
+            </p>
+
+            <p class="manifest-body manifest-close">
+                If you’re here, you’re not passing through.<br>
+                <span class="manifest-em">You’re entering.</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu-section" id="menu">
+    <div class="container fade-in-up">
+        <div class="menu-header">
+            <p class="menu-kicker">The Menu</p>
+            <h2 class="menu-title">A curated selection.</h2>
+            <p class="menu-subtitle">
+                The signatures we’re known for, the classics we respect, and wines chosen for depth and elegance.
+            </p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- SIGNATURE COCKTAILS -->
+            <article class="menu-panel">
+                <header class="panel-head">
+                    <h3>Signature Cocktails</h3>
+                    <p>Designed to feel like a ritual — each one a mood.</p>
+                </header>
+
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Passion Fruit Paradise</h4>
+                            <div class="item-meta">
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Bright · Escapist</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Vodka · Strawberry Vodka · Triple Sec · Passion Fruit
+                        </p>
+                        <p class="item-note">
+                            Tropical and luminous — made for soft laughter, warm lights, and the moment you decide to stay a little longer.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Duality</h4>
+                            <div class="item-meta">
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Fresh · Precise</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Rum · Mint · Lemon · Orange Liqueur · Cardamom
+                        </p>
+                        <p class="item-note">
+                            Clean freshness with a quiet spice — balanced like a conversation that turns into something more.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Contradiction</h4>
+                            <div class="item-meta">
+                                <span class="item-price">13</span>
+                                <span class="item-tag">Vibrant · Provocative</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Cachaça · Cointreau · Passion Fruit · Lemon
+                        </p>
+                        <p class="item-note">
+                            Bright acidity with a bold soul — playful, sharp, and impossible to ignore after the first sip.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CLASSIC COCKTAILS -->
+            <article class="menu-panel">
+                <header class="panel-head">
+                    <h3>Elegant Classics</h3>
+                    <p>Timeless structures, served with intention.</p>
+                </header>
+
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Negroni</h4>
+                            <div class="item-meta">
+                                <span class="item-price">10</span>
+                                <span class="item-tag">Structured · Confident</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Dry Gin · Campari · Sweet Vermouth
+                        </p>
+                        <p class="item-note">
+                            Bitter-sweet and composed — an unhurried drink for people who don’t need to be loud to be noticed.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Moscow Mule</h4>
+                            <div class="item-meta">
+                                <span class="item-price">11</span>
+                                <span class="item-tag">Crisp · Electric</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Vodka · Lemon · Ginger Beer
+                        </p>
+                        <p class="item-note">
+                            Cold, clean, and lifted — like fresh air between chapters of the night.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Pornstar Martini</h4>
+                            <div class="item-meta">
+                                <span class="item-price">12</span>
+                                <span class="item-tag">Indulgent · Seductive</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Vanilla Vodka · Passion Fruit · Lime · Prosecco
+                        </p>
+                        <p class="item-note">
+                            Velvet, exotic, and celebratory — dessert energy with a midnight edge.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- WINES -->
+            <article class="menu-panel">
+                <header class="panel-head">
+                    <h3>Premium Wines</h3>
+                    <p>Selected for depth, texture, and a long finish.</p>
+                </header>
+
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Rapazotes Grande Reserva 2019</h4>
+                            <div class="item-meta">
+                                <span class="item-price">29</span>
+                                <span class="item-tag">Deep · Persistent</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Touriga Nacional · Touriga Franca · Tinta Amarela
+                        </p>
+                        <p class="item-note">
+                            18 months (vertical press). Intense red fruit, cherry, plum, spices and cacao — balanced acidity, medium tannin, long and commanding finish.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-top">
+                            <h4>Rapazotes Arinto 2022</h4>
+                            <div class="item-meta">
+                                <span class="item-price">24</span>
+                                <span class="item-tag">Mineral · Precise</span>
+                            </div>
+                        </div>
+                        <p class="item-ing">
+                            Arinto
+                        </p>
+                        <p class="item-note">
+                            8 months in stainless steel. Citrus and green apple with high, clean acidity — floral, intensely mineral, fresh and persistent.
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="menu-cta">
+            <p class="menu-cta-text">Ready to go deeper?</p>
+            <a class="menu-full-btn" href="menu/expo.html">View full menu</a>
+            <!-- Se quiseres dois menus separados:
+            <div class="menu-cta-split">
+              <a class="menu-full-btn" href="menu/colinas.html">Full Menu — Main</a>
+              <a class="menu-full-btn" href="menu/expo.html">Full Menu — Expo</a>
+            </div>
+            -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <img src="images/logo/paradox_logo.svg" alt="The Paradox" class="footer-logo logo-white">
+            <p class="footer-note">
+                A calm, intimate lounge for after work &amp; late nights.
+            </p>
+        </div>
+
+        <div class="footer-locations" aria-label="Locations">
+            <div class="footer-location">
+                <p class="footer-loc-title">Colinas do Cruzeiro</p>
+                <p class="footer-loc-line">Av. Miguel Torga 22</p>
+                <p class="footer-loc-line">2675-664 Odivelas</p>
+                <p class="footer-loc-hours">Todos os dias · 19:00–02:00</p>
+            </div>
+
+            <div class="footer-location">
+                <p class="footer-loc-title">Parque das Nações</p>
+                <p class="footer-loc-line">Alameda dos Oceanos 13E</p>
+                <p class="footer-loc-line">1990-197 Lisboa</p>
+                <p class="footer-loc-hours">Qui–Dom · 18:00–02:00</p>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://instagram.com/theparadoxbar" target="_blank" rel="noopener" class="footer-link">
+                <img src="images/social/instagram.png" alt="" class="footer-icon logo-white">
+                <span>@theparadoxbar</span>
+            </a>
+
+            <a href="#" class="footer-link">Livro de Reclamações</a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> The Paradox. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+
+</html>
