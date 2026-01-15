@@ -1,62 +1,93 @@
-// Simple Intersection Observer for scroll animations
+// Main interactions (mobile-first, suave e com respeito por prefers-reduced-motion)
 document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0.1
-    };
+    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
+    // 1) Scroll reveal (fade-in-up)
+    initScrollReveal({ prefersReduced });
+
+    // 2) Hero entrance sequence + smooth scroll no botão "Enter"
+    initHeroEntrance({ prefersReduced });
+
+    // 3) Carousel do espaço (auto-play suave, pausa quando não está visível)
+    initSpaceCarousel({ prefersReduced });
+
+    // 4) Ano no footer
+    const year = document.getElementById('year');
+    if (year) year.textContent = String(new Date().getFullYear());
+
+    // 5) Menu "More/Less" (opcional; só ativa se existir)
+    document.querySelectorAll('.item-more').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.menu-item');
+            if (!item) return;
+            const open = item.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            btn.textContent = open ? 'Less' : 'More';
         });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll('.fade-in-up');
-    elements.forEach(el => observer.observe(el));
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const hero = document.querySelector('.hero--entrance');
-    if (!hero) return;
-
-    // Marca a hero como pronta (para revelar as fotos)
-    requestAnimationFrame(() => hero.classList.add('is-ready'));
-
-    // Sequência
-    const titleDelay = 150;      // aparece quase imediatamente
-    const taglineDelay = 1400;   // 1.4s depois (ajusta para 1000-2000ms)
-    const enterDelay = 2400;     // mais 1s depois
-
-    setTimeout(() => hero.classList.add('is-title'), titleDelay);
-    setTimeout(() => hero.classList.add('is-tagline'), taglineDelay);
-    setTimeout(() => hero.classList.add('is-enter'), enterDelay);
-
-    // Scroll suave no Enter (se o browser não suportar, cai no normal)
-    const enterBtn = hero.querySelector('.entrance-btn');
-    enterBtn?.addEventListener('click', (e) => {
-        const target = document.querySelector('#space');
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+function initScrollReveal({ prefersReduced }){
+    const targets = document.querySelectorAll('.fade-in-up');
+    if (!targets.length) return;
+
+    // Se o utilizador prefere menos animação, revela tudo imediatamente
+    if (prefersReduced || !('IntersectionObserver' in window)){
+        targets.forEach(el => el.classList.add('visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+        });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+    targets.forEach(el => observer.observe(el));
+}
+
+function initHeroEntrance({ prefersReduced }){
+    const hero = document.querySelector('.hero--entrance');
+    if (!hero) return;
+
+    // Marca a hero como pronta (revela as fotos/elementos dependentes)
+    requestAnimationFrame(() => hero.classList.add('is-ready'));
+
+    if (prefersReduced){
+        hero.classList.add('is-title', 'is-tagline', 'is-enter');
+    } else {
+        // Sequência (luxury pacing)
+        window.setTimeout(() => hero.classList.add('is-title'), 150);
+        window.setTimeout(() => hero.classList.add('is-tagline'), 1400);
+        window.setTimeout(() => hero.classList.add('is-enter'), 2400);
+    }
+
+    // Scroll suave no Enter
+    const enterBtn = hero.querySelector('.entrance-btn');
+    if (!enterBtn) return;
+
+    enterBtn.addEventListener('click', (e) => {
+        const target = document.querySelector('#space');
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+    }, { passive: false });
+}
+
+function initSpaceCarousel({ prefersReduced }){
     const carousel = document.querySelector('[data-carousel]');
     if (!carousel) return;
 
     const slides = Array.from(carousel.querySelectorAll('.space-slide'));
-    const dotsWrap = carousel.querySelector('[data-dots]');
     const prevBtn = carousel.querySelector('[data-prev]');
     const nextBtn = carousel.querySelector('[data-next]');
+    const dotsWrap = carousel.querySelector('.space-dots');
 
     if (!slides.length || !dotsWrap) return;
 
-    // Create dots
+    // Dots
     const dots = slides.map((_, idx) => {
         const b = document.createElement('button');
         b.type = 'button';
@@ -70,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let index = slides.findIndex(s => s.classList.contains('is-active'));
     if (index < 0) index = 0;
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const intervalMs = 3800; // suave, “luxury pacing”
+    const intervalMs = 3800; // suave
     let timer = null;
     let isPaused = false;
 
@@ -93,17 +123,28 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn?.addEventListener('click', prev);
     nextBtn?.addEventListener('click', next);
 
-    // Auto-play (only if not reduced motion)
+    // Mobile: pausa enquanto o utilizador interage
+    const pause = () => { isPaused = true; };
+    const resume = () => { isPaused = false; };
+
+    carousel.addEventListener('mouseenter', pause);
+    carousel.addEventListener('mouseleave', resume);
+    carousel.addEventListener('focusin', pause);
+    carousel.addEventListener('focusout', resume);
+    carousel.addEventListener('pointerdown', pause, { passive: true });
+    carousel.addEventListener('pointerup', resume, { passive: true });
+    carousel.addEventListener('pointercancel', resume, { passive: true });
+
     function start(){
-        if (prefersReduced) return;
-        if (timer) clearInterval(timer);
-        timer = setInterval(() => {
-            if (!isPaused) next();
+        if (timer || prefersReduced) return; // em reduced motion, não faz autoplay
+        timer = window.setInterval(() => {
+            if (!isPaused) setActive((index + 1) % slides.length);
         }, intervalMs);
     }
 
     function stop(){
-        if (timer) clearInterval(timer);
+        if (!timer) return;
+        window.clearInterval(timer);
         timer = null;
     }
 
@@ -112,13 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         start();
     }
 
-    // Pause on hover/focus
-    carousel.addEventListener('mouseenter', () => { isPaused = true; });
-    carousel.addEventListener('mouseleave', () => { isPaused = false; });
-    carousel.addEventListener('focusin', () => { isPaused = true; });
-    carousel.addEventListener('focusout', () => { isPaused = false; });
-
-    // Start only when visible (clean + performance)
+    // Start/stop com visibilidade (performance + bateria em mobile)
     const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) start();
@@ -127,21 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.25 });
 
     io.observe(carousel);
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const y = document.getElementById('year');
-    if (y) y.textContent = new Date().getFullYear();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.item-more').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const item = btn.closest('.menu-item');
-            if (!item) return;
-            const open = item.classList.toggle('is-open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            btn.textContent = open ? 'Less' : 'More';
-        });
+    // Se o tab estiver em background, pára
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else start();
     });
-});
+
+    // Estado inicial
+    setActive(index);
+}
