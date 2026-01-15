@@ -6,6 +6,11 @@
     --card-border: #eaeaea;
 }
 
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+}
+
 /* container garantido */
 .container{
     max-width: 1120px;
@@ -238,6 +243,34 @@ body{
     margin-bottom: 1.75rem;
 }
 
+
+/* CTA (mobile-first): 99% dos utilizadores em mobile */
+.space-actions{
+    display: flex;
+    justify-content: center; /* mobile: centralizado */
+}
+
+.space-actions .btn{
+    width: 100%;
+    max-width: 360px;
+}
+
+/* Desktop: alinha com o texto */
+@media (min-width: 900px){
+    .space-actions{
+        justify-content: flex-start;
+    }
+    .space-actions .btn{
+        width: auto;
+        max-width: none;
+    }
+}
+
+/* Garantia de contraste se o Tailwind não estiver ativo */
+.space-section .btn,
+.btn.text-white{
+    color: rgba(245,241,232,0.92);
+}
 /* Media / Carousel */
 .space-carousel{
     position: relative;
@@ -312,6 +345,11 @@ body{
     font-size: 0.75rem;
     backdrop-filter: blur(10px);
     transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .space-nav:hover{
@@ -725,7 +763,7 @@ body{
     }
 
     .item-meta{
-        gap: 8px;
+        gap: 4px;
         flex-wrap: wrap; /* evita quebrar mal */
     }
 
@@ -903,17 +941,6 @@ body{
 }
 
 /* White treatment for external SVG/PNG */
-.logo-white{
-    filter: brightness(0) invert(1);
-}
-
-
-
-
-
-
-
-
 /* Scroll indicator como link */
 .scroll-indicator{
     position: absolute;
@@ -1027,6 +1054,9 @@ h2{
 
 /* Botão (garante consistência caso .btn esteja no style.css) */
 .btn{
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1047,8 +1077,13 @@ h2{
     outline-offset: 3px;
 }
 
-
-.social-link{
+/* Footer (theme-light) */
+.theme-light footer{
+    padding: 4rem 1.25rem;
+    border-top: 1px solid #eee;
+    background-color: #fafafa;
+}
+.theme-light .social-link{
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -1056,8 +1091,8 @@ h2{
     color: #666;
     text-decoration: none;
 }
-.social-link:hover{ color: var(--brand-color); }
-.social-link:focus{
+.theme-light .social-link:hover{ color: var(--brand-color); }
+.theme-light .social-link:focus{
     outline: 2px solid rgba(196,162,94,0.45);
     outline-offset: 3px;
     border-radius: 8px;
@@ -1078,4 +1113,52 @@ h2{
 @media (prefers-reduced-motion: reduce){
     .scroll-indicator{ animation: none; }
     .fade-in-up{ transition: none; transform: none; opacity: 1; }
+}
+
+.lang-switch{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;
+    background:rgba(0,0,0,.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.lang-link{
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.72);
+    text-decoration:none;
+    padding:6px 8px;
+    border-radius:999px;
+    transition: color .25s ease, background .25s ease;
+}
+
+.lang-link:hover{
+    color:#fff;
+    background:rgba(255,255,255,.08);
+}
+
+.lang-link.is-active{
+    color:#fff;
+    background:rgba(255,255,255,.12);
+}
+
+.lang-sep{
+    color:rgba(255,255,255,.35);
+    font-size:12px;
+}
+
+@media (max-width: 480px){
+    .lang-switch{ top:12px; right:12px; padding:9px 10px; }
+    .lang-link{ font-size:11px; padding:6px 7px; }
 }
