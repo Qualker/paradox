@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Paradox — Discover</title>
+    <meta name="description" content="There's something hidden here. Can you find it?">
+    <link rel="icon" href="favicon.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand: #C4A25E;
+        }
+
+        @font-face {
+            font-family: 'Marquette';
+            src: url('fonts/Marquette.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Campaign-Serif';
+            src: url('fonts/Campaign-Serif.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            cursor: none;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flashlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(
+                circle 150px at var(--x, 50%) var(--y, 50%),
+                transparent 10%,
+                rgba(0, 0, 0, 0.95) 100%
+            );
+            z-index: 10;
+        }
+
+        .content {
+            position: relative;
+            text-align: center;
+            z-index: 5;
+            max-width: 80%;
+            user-select: none;
+        }
+
+        h1 {
+            font-family: 'Marquette', serif;
+            color: var(--brand);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .logo {
+            height: 120px;
+            margin: 0 auto 2rem;
+            filter: brightness(0.9);
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .secret-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .secret-code {
+            position: absolute;
+            font-family: 'Campaign-Serif', serif;
+            font-size: 0.8rem;
+            color: var(--brand);
+            opacity: 0.4;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo { height: 80px; }
+            h1 { font-size: 1.2rem; }
+            .flashlight {
+                background: radial-gradient(
+                    circle 120px at var(--x, 50%) var(--y, 50%),
+                    transparent 10%,
+                    rgba(0, 0, 0, 0.98) 100%
+                );
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flashlight"></div>
+
+    <div class="content">
+        <img src="images/logo/paradox_logo.svg" alt="Paradox Logo" class="logo">
+        <h1>this is not an ad!</h1>
+        <p class="text-gray-400 font-medium tracking-widest text-sm md:text-base">
+            There’s something hidden here, you just have to find it!
+        </p>
+    </div>
+
+    <div class="secret-container" id="secret-container">
+        <!-- The secret code will be placed randomly via JS -->
+    </div>
+
+    <script>
+        const flashlight = document.querySelector('.flashlight');
+        const secretContainer = document.getElementById('secret-container');
+        const codeText = "Y0UF0UND3DG3TY0U4F433DR1NK";
+
+        // Update flashlight position
+        const updateFlashlight = (e) => {
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            if (x && y) {
+                flashlight.style.setProperty('--x', `${x}px`);
+                flashlight.style.setProperty('--y', `${y}px`);
+            }
+        };
+
+        window.addEventListener('mousemove', updateFlashlight);
+        window.addEventListener('touchmove', updateFlashlight);
+
+        // Place secret code in a "random" but findable spot
+        const placeSecret = () => {
+            const secret = document.createElement('div');
+            secret.className = 'secret-code';
+            secret.innerText = codeText;
+            
+            // Randomly position it away from the center to make them search
+            const side = Math.floor(Math.random() * 4);
+            let top, left;
+
+            if (side === 0) { // Top
+                top = Math.random() * 20 + 5;
+                left = Math.random() * 70 + 15;
+            } else if (side === 1) { // Bottom
+                top = Math.random() * 20 + 75;
+                left = Math.random() * 70 + 15;
+            } else if (side === 2) { // Left
+                top = Math.random() * 60 + 20;
+                left = Math.random() * 15 + 5;
+            } else { // Right
+                top = Math.random() * 60 + 20;
+                left = Math.random() * 15 + 80;
+            }
+
+            secret.style.top = `${top}%`;
+            secret.style.left = `${left}%`;
+            secret.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+            
+            secretContainer.appendChild(secret);
+        };
+
+        placeSecret();
+    </script>
+</body>
+</html>
