@@ -116,6 +116,27 @@
             opacity: 0.4;
             letter-spacing: 2px;
             white-space: nowrap;
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .secret-link {
+            font-size: 0.4rem;
+            text-decoration: none;
+            color: var(--brand);
+            border: 1px solid var(--brand);
+            padding: 2px 6px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            margin-top: 2px;
+        }
+
+        .secret-link:hover {
+            background: var(--brand);
+            color: #000;
         }
 
         /* Responsive adjustments */
@@ -144,7 +165,7 @@
         <img src="images/logo/paradox_logo.svg" alt="Paradox Logo" class="logo">
         <h1>this is not an ad!</h1>
         <p class="text-gray-400 font-medium tracking-widest text-sm md:text-base">
-            There’s something hidden here, you just have to find it!
+            Say this at the bar and find out what we have for you!
         </p>
     </div>
 
@@ -156,7 +177,7 @@
         const flashlight = document.querySelector('.flashlight');
         const secretContainer = document.getElementById('secret-container');
 
-        const _0x4f2a = "WTBVRTBVTkQzREczVFkwVVJGUjMzRFIxTks=";
+        const _0x4f2a = "QUZURVIgREFSSw==";
         const _0x1a2b = (s) => atob(s);
 
         // Update flashlight position
@@ -173,11 +194,21 @@
         window.addEventListener('mousemove', updateFlashlight);
         window.addEventListener('touchmove', updateFlashlight);
 
-        // Place secret code in a "random" but findable spot
+        // Place secret code and Instagram link in a "random" but findable spot
         const placeSecret = () => {
             const secret = document.createElement('div');
             secret.className = 'secret-code';
-            secret.innerText = _0x1a2b(_0x4f2a);
+
+            const codeText = document.createElement('span');
+            codeText.innerText = _0x1a2b(_0x4f2a);
+            secret.appendChild(codeText);
+
+            const instaLink = document.createElement('a');
+            instaLink.href = 'https://www.instagram.com/theparadoxbar';
+            instaLink.target = '_blank';
+            instaLink.className = 'secret-link';
+            instaLink.innerText = '@theparadoxbar';
+            secret.appendChild(instaLink);
 
             // Randomly position it away from the center to make them search
             const side = Math.floor(Math.random() * 4);
