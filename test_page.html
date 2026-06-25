@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chrome LNA PoC — Sanday × Vitalograph</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e334d;
+      --accent: #4f7fff;
+      --accent-dim: rgba(79, 127, 255, 0.12);
+      --green: #3ecf8e;
+      --green-dim: rgba(62, 207, 142, 0.12);
+      --red: #f87171;
+      --red-dim: rgba(248, 113, 113, 0.12);
+      --yellow: #fbbf24;
+      --yellow-dim: rgba(251, 191, 36, 0.12);
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --radius: 10px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      padding: 32px 24px 64px;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 860px;
+      margin: 0 auto 40px;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .badge-blue  { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+    .badge-green { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green); }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body { padding: 20px; }
+
+    /* ── Flow diagram ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .flow-node {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+
+    .flow-node .label { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+    .flow-node .value { color: var(--text); font-weight: 600; margin-top: 2px; font-family: var(--mono); font-size: 12px; }
+
+    .flow-node.highlight { border-color: var(--accent); background: var(--accent-dim); }
+    .flow-node.highlight .value { color: var(--accent); }
+
+    .flow-arrow {
+      flex: 1;
+      min-width: 40px;
+      text-align: center;
+      position: relative;
+      padding: 0 4px;
+    }
+
+    .flow-arrow::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      right: 8px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .flow-arrow .arrow-label {
+      position: relative;
+      background: var(--bg);
+      padding: 2px 6px;
+      font-size: 10px;
+      color: var(--text-muted);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* ── Endpoints grid ── */
+    .endpoints { display: grid; gap: 10px; }
+
+    .endpoint {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+
+    .endpoint:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .endpoint:active { transform: scale(.99); }
+
+    .method {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .method-get  { background: var(--green-dim);  color: var(--green); }
+    .method-post { background: var(--accent-dim); color: var(--accent); }
+
+    .endpoint-info .path {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .endpoint-info .desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .endpoint-action {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* ── Status indicator ── */
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .dot-grey   { background: var(--text-muted); }
+    .dot-green  { background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+    .dot-red    { background: var(--red); }
+    .dot-yellow { background: var(--yellow); animation: pulse 1s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    /* ── Log ── */
+    .log {
+      background: #090b10;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+      min-height: 200px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .log::-webkit-scrollbar { width: 4px; }
+    .log::-webkit-scrollbar-track { background: transparent; }
+    .log::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .log-line { display: flex; gap: 12px; }
+    .log-time { color: var(--text-muted); min-width: 60px; }
+    .log-msg  { color: var(--text-dim); flex: 1; white-space: pre-wrap; word-break: break-all; }
+
+    .log-msg.info    { color: var(--text-dim); }
+    .log-msg.success { color: var(--green); }
+    .log-msg.error   { color: var(--red); }
+    .log-msg.warn    { color: var(--yellow); }
+    .log-msg.request { color: var(--accent); }
+    .log-msg.preflight { color: #a78bfa; }
+
+    /* ── Result panel ── */
+    .result-panel {
+      background: #090b10;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--green);
+      min-height: 100px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      border-left: 3px solid;
+    }
+
+    .info-box.blue   { background: var(--accent-dim); border-color: var(--accent); color: var(--text-dim); }
+    .info-box.yellow { background: var(--yellow-dim); border-color: var(--yellow); color: var(--text-dim); }
+
+    .info-box strong { color: var(--text); }
+
+    /* ── Buttons ── */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid;
+      transition: opacity .15s, transform .1s;
+    }
+
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn-primary:hover:not(:disabled) { opacity: .85; }
+
+    .btn-ghost { background: transparent; border-color: var(--border); color: var(--text-dim); }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Chrome version warning ── */
+    #chrome-warning {
+      display: none;
+      padding: 12px 16px;
+      background: var(--red-dim);
+      border: 1px solid var(--red);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .version-info {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge-row">
+    <span class="badge badge-blue">Chrome LNA</span>
+    <span class="badge badge-green">PoC</span>
+  </div>
+  <h1>Sanday × <span>Vitalograph</span> — Local Network Access</h1>
+  <p class="subtitle">
+    Validação de comunicação directa entre site HTTPS e software local HTTP,<br>
+    sem device-server, usando a especificação Chrome LNA (v142+).
+  </p>
+</div>
+
+<div id="chrome-warning">
+  ⚠️ Chrome LNA requer Chrome 142 ou superior. A tua versão pode não suportar este fluxo.
+</div>
+
+<div class="main">
+
+  <!-- Flow -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">📡 Fluxo de comunicação LNA</span>
+      <span class="version-info" id="chrome-version">A detectar Chrome...</span>
+    </div>
+    <div class="card-body">
+      <div class="flow">
+        <div class="flow-node highlight">
+          <div class="label">Site HTTPS</div>
+          <div class="value">sanday.com</div>
+        </div>
+        <div class="flow-arrow">
+          <div class="arrow-label">1. Preflight OPTIONS<br>+ LNA header</div>
+        </div>
+        <div class="flow-node">
+          <div class="label">Servidor Local</div>
+          <div class="value">localhost:8001</div>
+        </div>
+        <div class="flow-arrow">
+          <div class="arrow-label">2. 204 OK<br>Allow-Private-Network</div>
+        </div>
+        <div class="flow-node highlight">
+          <div class="label">Site HTTPS</div>
+          <div class="value">Request real</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="info-box blue">
+          <strong>Como funciona:</strong> O Chrome intercepta o fetch para <code>localhost</code> (rede privada) e primeiro envia um preflight <code>OPTIONS</code> com o header <code>Access-Control-Request-Private-Network: true</code>. O servidor local tem de responder com <code>Access-Control-Allow-Private-Network: true</code>. Só depois o request real é enviado.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Server status -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">🖥️ Servidor local</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="status-dot dot-grey" id="status-dot"></span>
+        <span id="server-status" style="font-size:13px; color:var(--text-muted)">Não verificado</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-box yellow" style="margin-bottom:16px;">
+        <strong>Antes de testar:</strong> Corre o servidor Python localmente:<br>
+        <code style="font-family:var(--mono); font-size:12px; margin-top:6px; display:block;">python3 local_server.py</code>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="checkServerHealth()">
+          🔍 Verificar servidor
+        </button>
+        <button class="btn btn-ghost" onclick="clearLog()">
+          🗑️ Limpar log
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endpoints -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">⚡ Endpoints de espirometria</span>
+    </div>
+    <div class="card-body">
+      <div class="endpoints">
+        <div class="endpoint" onclick="callEndpoint('GET', '/health')">
+          <span class="method method-get">GET</span>
+          <div class="endpoint-info">
+            <div class="path">/health</div>
+            <div class="desc">Verifica se o servidor está vivo</div>
+          </div>
+          <span class="endpoint-action">Testar →</span>
+        </div>
+        <div class="endpoint" onclick="callEndpoint('GET', '/spirometry/status')">
+          <span class="method method-get">GET</span>
+          <div class="endpoint-info">
+            <div class="path">/spirometry/status</div>
+            <div class="desc">Estado do dispositivo Vitalograph</div>
+          </div>
+          <span class="endpoint-action">Testar →</span>
+        </div>
+        <div class="endpoint" onclick="callEndpoint('GET', '/spirometry/results')">
+          <span class="method method-get">GET</span>
+          <div class="endpoint-info">
+            <div class="path">/spirometry/results</div>
+            <div class="desc">Resultados do último teste (FVC, FEV1, PEF...)</div>
+          </div>
+          <span class="endpoint-action">Testar →</span>
+        </div>
+        <div class="endpoint" onclick="callEndpoint('POST', '/spirometry/start', {patient_id: 'P12345', test_type: 'FVC'})">
+          <span class="method method-post">POST</span>
+          <div class="endpoint-info">
+            <div class="path">/spirometry/start</div>
+            <div class="desc">Inicia um novo teste de espirometria</div>
+          </div>
+          <span class="endpoint-action">Testar →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">📄 Última resposta</span>
+    </div>
+    <div class="card-body">
+      <div class="result-panel" id="result-panel">// Clica num endpoint acima para ver a resposta</div>
+    </div>
+  </div>
+
+  <!-- Log -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">📋 Log de requests</span>
+    </div>
+    <div class="card-body">
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+
+  <!-- LNA Notes -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">📝 O que este PoC valida</span>
+    </div>
+    <div class="card-body" style="display:grid; gap:10px;">
+      <div class="info-box blue">
+        <strong>✅ Sucesso significa:</strong> O Chrome 142+ enviou o preflight LNA automaticamente, o servidor local respondeu com <code>Access-Control-Allow-Private-Network: true</code>, e o fetch de HTTPS para HTTP localhost funcionou sem device-server.
+      </div>
+      <div class="info-box yellow">
+        <strong>⚠️ Limitações conhecidas:</strong> LNA é <strong>Chrome-only</strong> (Safari não suporta). O Chrome pode mostrar um <strong>prompt de permissão</strong> ao utilizador a partir de versões futuras. Testar neste ficheiro aberto localmente (<code>file://</code>) simula o comportamento — para o teste real, serve esta página via HTTPS.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const LOCAL_URL = 'http://localhost:8001';
+  let requestCount = 0;
+
+  // ── Detect Chrome version ──────────────────────────────────────────
+  function detectChrome() {
+    const ua = navigator.userAgent;
+    const match = ua.match(/Chrome\/(\d+)/);
+    const versionEl = document.getElementById('chrome-version');
+    const warning = document.getElementById('chrome-warning');
+
+    if (match) {
+      const v = parseInt(match[1]);
+      versionEl.textContent = `Chrome ${v}`;
+      if (v < 142) {
+        versionEl.style.color = 'var(--red)';
+        warning.style.display = 'block';
+        log('warn', `Chrome ${v} detectado — LNA requer v142+`);
+      } else {
+        versionEl.style.color = 'var(--green)';
+        log('success', `Chrome ${v} detectado — LNA suportado ✓`);
+      }
+    } else {
+      versionEl.textContent = 'Não é Chrome';
+      versionEl.style.color = 'var(--red)';
+      warning.style.display = 'block';
+      log('warn', 'Não é Chrome — LNA pode não funcionar');
+    }
+  }
+
+  // ── Log ────────────────────────────────────────────────────────────
+  function log(type, msg) {
+    const logEl = document.getElementById('log');
+    const now = new Date();
+    const time = now.toTimeString().slice(0, 8);
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span class="log-time">${time}</span><span class="log-msg ${type}">${escHtml(msg)}</span>`;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function clearLog() {
+    document.getElementById('log').innerHTML = '';
+    document.getElementById('result-panel').textContent = '// Log limpo';
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── Server status ──────────────────────────────────────────────────
+  function setStatus(state) {
+    const dot = document.getElementById('status-dot');
+    const txt = document.getElementById('server-status');
+    dot.className = 'status-dot';
+    const states = {
+      checking: ['dot-yellow', 'A verificar...'],
+      online:   ['dot-green',  'Online'],
+      offline:  ['dot-red',    'Offline — corre python3 local_server.py'],
+    };
+    const [cls, label] = states[state] || ['dot-grey', 'Desconhecido'];
+    dot.classList.add(cls);
+    txt.textContent = label;
+    txt.style.color = state === 'online' ? 'var(--green)' : state === 'offline' ? 'var(--red)' : 'var(--yellow)';
+  }
+
+  async function checkServerHealth() {
+    setStatus('checking');
+    log('request', '→ GET /health (verificação de saúde)');
+    try {
+      const r = await fetch(`${LOCAL_URL}/health`);
+      const data = await r.json();
+      setStatus('online');
+      log('success', `✓ Servidor online — ${data.service} v${data.version}`);
+      log('info', `  LNA headers: Access-Control-Allow-Private-Network presente`);
+    } catch (e) {
+      setStatus('offline');
+      log('error', `✗ Erro: ${e.message}`);
+      log('warn', '  Verifica se o servidor Python está a correr');
+    }
+  }
+
+  // ── Call endpoint ──────────────────────────────────────────────────
+  async function callEndpoint(method, path, body) {
+    requestCount++;
+    const n = requestCount;
+    const url = `${LOCAL_URL}${path}`;
+
+    log('request', `[${n}] → ${method} ${path}`);
+    if (method === 'POST' && body) {
+      log('info', `     Body: ${JSON.stringify(body)}`);
+    }
+    log('preflight', `     Chrome vai enviar preflight OPTIONS com Access-Control-Request-Private-Network: true`);
+
+    const panel = document.getElementById('result-panel');
+    panel.textContent = '// A aguardar resposta...';
+    panel.style.color = 'var(--text-muted)';
+
+    try {
+      const opts = {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+      };
+      if (method === 'POST' && body) {
+        opts.body = JSON.stringify(body);
+      }
+
+      const t0 = performance.now();
+      const r = await fetch(url, opts);
+      const ms = Math.round(performance.now() - t0);
+      const data = await r.json();
+
+      log('success', `[${n}] ← ${r.status} OK  (${ms}ms)`);
+      log('success', `     Access-Control-Allow-Private-Network recebido ✓`);
+
+      const formatted = JSON.stringify(data, null, 2);
+      panel.textContent = formatted;
+      panel.style.color = 'var(--green)';
+
+    } catch (e) {
+      log('error', `[${n}] ✗ FALHOU: ${e.message}`);
+      log('error', `     Possíveis causas:`);
+      log('error', `     1. Servidor não está a correr`);
+      log('error', `     2. Chrome bloqueou mixed-content HTTPS→HTTP`);
+      log('error', `     3. LNA headers em falta no servidor`);
+      log('error', `     4. Chrome < 142 sem suporte LNA`);
+
+      panel.textContent = `// Erro: ${e.message}\n\n// Ver log para detalhes`;
+      panel.style.color = 'var(--red)';
+    }
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    detectChrome();
+    log('info', `Página carregada — origem: ${window.location.origin}`);
+    log('info', `Servidor alvo: ${LOCAL_URL}`);
+    log('info', `Clica num endpoint para testar LNA`);
+  });
+</script>
+
+</body>
+</html>
