@@ -165,54 +165,60 @@
       display: inline-block;
     }
 
-    /* ── Endpoints grid ── */
-    .endpoints { display: grid; gap: 10px; }
-
-    .endpoint {
+    /* ── Form ── */
+    .form-grid {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
+      gap: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .form-row.cols-2 {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-row.cols-3 {
+      grid-template-columns: 100px 1fr 1fr;
+      gap: 14px;
+    }
+
+    label.field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    input[type="text"], select, textarea {
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: border-color .15s, background .15s;
-    }
-
-    .endpoint:hover { border-color: var(--accent); background: var(--accent-dim); }
-    .endpoint:active { transform: scale(.99); }
-
-    .method {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      min-width: 44px;
-      text-align: center;
-    }
-
-    .method-get  { background: var(--green-dim);  color: var(--green); }
-    .method-post { background: var(--accent-dim); color: var(--accent); }
-
-    .endpoint-info .path {
+      border-radius: 6px;
+      padding: 8px 10px;
       font-family: var(--mono);
       font-size: 13px;
       color: var(--text);
+      width: 100%;
     }
 
-    .endpoint-info .desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
+    input[type="text"]:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
     }
 
-    .endpoint-action {
-      font-size: 12px;
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+      font-family: var(--mono);
+    }
+
+    .field-hint {
+      font-size: 11px;
       color: var(--text-muted);
-      white-space: nowrap;
     }
 
     /* ── Status indicator ── */
@@ -343,8 +349,8 @@
   </div>
   <h1>Sanday × <span>Vitalograph</span> — Local Network Access</h1>
   <p class="subtitle">
-    Validação de comunicação directa entre site HTTPS e software local HTTP,<br>
-    sem device-server, usando a especificação Chrome LNA (v142+).
+    Validação de comunicação directa entre este site HTTPS e o software Vitalograph instalado localmente,<br>
+    sem passar pelo device-server, usando a especificação Chrome LNA (v142+).
   </p>
 </div>
 
@@ -364,17 +370,17 @@
       <div class="flow">
         <div class="flow-node highlight">
           <div class="label">Site HTTPS</div>
-          <div class="value">sanday.com</div>
+          <div class="value">github.io</div>
         </div>
         <div class="flow-arrow">
-          <div class="arrow-label">1. Preflight OPTIONS<br>+ LNA header</div>
+          <div class="arrow-label">1. Preflight OPTIONS<br>(CORS)</div>
         </div>
         <div class="flow-node">
-          <div class="label">Servidor Local</div>
-          <div class="value">localhost:8001</div>
+          <div class="label">Software local</div>
+          <div class="value" id="flow-target">http://localhost:80</div>
         </div>
         <div class="flow-arrow">
-          <div class="arrow-label">2. 204 OK<br>Allow-Private-Network</div>
+          <div class="arrow-label">2. 204 OK<br>+ CORS headers</div>
         </div>
         <div class="flow-node highlight">
           <div class="label">Site HTTPS</div>
@@ -384,16 +390,16 @@
 
       <div style="margin-top:16px;">
         <div class="info-box blue">
-          <strong>Como funciona:</strong> O Chrome intercepta o fetch para <code>localhost</code> (rede privada) e primeiro envia um preflight <code>OPTIONS</code> com o header <code>Access-Control-Request-Private-Network: true</code>. O servidor local tem de responder com <code>Access-Control-Allow-Private-Network: true</code>. Só depois o request real é enviado.
+          <strong>Como funciona:</strong> Um <code>POST</code> com <code>Content-Type: application/json</code> obriga sempre a um preflight <code>OPTIONS</code> de <strong>CORS comum</strong> — isto acontece com ou sem rede local, é uma regra do browser há mais de uma década. O software local tem de responder com <code>Access-Control-Allow-Origin</code> (e afins) para o pedido real ser permitido. Adicionalmente, a partir do Chrome 142 existe também o <strong>Local Network Access (LNA)</strong>: um popup de permissão pedido ao <em>utilizador</em> (não ao servidor) na primeira vez que um site acede à rede local — substituiu uma tentativa anterior ("Private Network Access") que exigia um header especial do servidor, entretanto abandonada pela Google. Isto significa que o servidor só precisa de responder bem a CORS comum; a permissão LNA é tratada inteiramente pelo browser e pelo utilizador.
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Server status -->
+  <!-- Target configuration -->
   <div class="card">
     <div class="card-header">
-      <span class="card-title">🖥️ Servidor local</span>
+      <span class="card-title">🎯 Alvo (software Vitalograph)</span>
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="status-dot dot-grey" id="status-dot"></span>
         <span id="server-status" style="font-size:13px; color:var(--text-muted)">Não verificado</span>
@@ -401,12 +407,21 @@
     </div>
     <div class="card-body">
       <div class="info-box yellow" style="margin-bottom:16px;">
-        <strong>Antes de testar:</strong> Corre o servidor Python localmente:<br>
-        <code style="font-family:var(--mono); font-size:12px; margin-top:6px; display:block;">python3 local_server.py</code>
+        <strong>Não sabemos os paths reais do Vitalograph:</strong> o device-server não tem endpoints
+        específicos de espirometria — só um <code>/passthrough</code> genérico que reencaminha para qualquer
+        URL. Preenche abaixo o endereço real do software local (porta, path, headers) conforme a documentação
+        do fabricante ou o que já estava configurado como <code>location</code> no <code>/passthrough</code>.
       </div>
-      <div class="btn-row">
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="field-label" for="base-url">URL base do software local</label>
+          <input type="text" id="base-url" value="http://localhost:80" />
+          <span class="field-hint">Ex: http://localhost:80 — muda a porta/host conforme o Vitalograph instalado</span>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
         <button class="btn btn-primary" onclick="checkServerHealth()">
-          🔍 Verificar servidor
+          🔍 Verificar alcance
         </button>
         <button class="btn btn-ghost" onclick="clearLog()">
           🗑️ Limpar log
@@ -415,45 +430,62 @@
     </div>
   </div>
 
-  <!-- Endpoints -->
+  <!-- Request builder -->
   <div class="card">
     <div class="card-header">
-      <span class="card-title">⚡ Endpoints de espirometria</span>
+      <span class="card-title">⚡ Construtor de pedido</span>
     </div>
     <div class="card-body">
-      <div class="endpoints">
-        <div class="endpoint" onclick="callEndpoint('GET', '/health')">
-          <span class="method method-get">GET</span>
-          <div class="endpoint-info">
-            <div class="path">/health</div>
-            <div class="desc">Verifica se o servidor está vivo</div>
+      <div class="info-box blue" style="margin-bottom:16px;">
+        <strong>Exemplo real:</strong> pedido de espirometria (FHIR Bundle) tal como a Sanday o envia hoje ao
+        Vitalograph através do <code>/passthrough</code> do device-server. Clica em "Carregar exemplo real" para
+        testar o mesmo payload diretamente contra <code>http://127.0.0.1:80/connect/Fhir/Bundle</code>, sem
+        device-server no meio.
+      </div>
+      <div class="btn-row" style="margin-bottom:16px;">
+        <button class="btn btn-ghost" onclick="loadFhirExample()">
+          📋 Carregar exemplo real (Sanday → Vitalograph)
+        </button>
+      </div>
+      <div class="form-grid">
+        <div class="form-row cols-3">
+          <div>
+            <label class="field-label" for="req-method">Método</label>
+            <select id="req-method">
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+            </select>
           </div>
-          <span class="endpoint-action">Testar →</span>
-        </div>
-        <div class="endpoint" onclick="callEndpoint('GET', '/spirometry/status')">
-          <span class="method method-get">GET</span>
-          <div class="endpoint-info">
-            <div class="path">/spirometry/status</div>
-            <div class="desc">Estado do dispositivo Vitalograph</div>
+          <div>
+            <label class="field-label" for="req-path">Path</label>
+            <input type="text" id="req-path" value="/" placeholder="/spirometry/status" />
           </div>
-          <span class="endpoint-action">Testar →</span>
-        </div>
-        <div class="endpoint" onclick="callEndpoint('GET', '/spirometry/results')">
-          <span class="method method-get">GET</span>
-          <div class="endpoint-info">
-            <div class="path">/spirometry/results</div>
-            <div class="desc">Resultados do último teste (FVC, FEV1, PEF...)</div>
+          <div>
+            <label class="field-label" for="req-content-type">Content-Type</label>
+            <input type="text" id="req-content-type" value="application/json" />
           </div>
-          <span class="endpoint-action">Testar →</span>
         </div>
-        <div class="endpoint" onclick="callEndpoint('POST', '/spirometry/start', {patient_id: 'P12345', test_type: 'FVC'})">
-          <span class="method method-post">POST</span>
-          <div class="endpoint-info">
-            <div class="path">/spirometry/start</div>
-            <div class="desc">Inicia um novo teste de espirometria</div>
+        <div class="form-row cols-2">
+          <div>
+            <label class="field-label" for="req-emr">Header EMR</label>
+            <input type="text" id="req-emr" placeholder="Sanday" />
+            <span class="field-hint">Opcional — espelha o header EMR que o /passthrough forwarda</span>
           </div>
-          <span class="endpoint-action">Testar →</span>
+          <div>
+            <label class="field-label" for="req-authorization">Header Authorization</label>
+            <input type="text" id="req-authorization" placeholder="Bearer ..." />
+            <span class="field-hint">Opcional — token a enviar diretamente ao software local</span>
+          </div>
         </div>
+        <div class="form-row">
+          <label class="field-label" for="req-body">Body (para POST)</label>
+          <textarea id="req-body" placeholder='{"patient_id":"P12345"}'></textarea>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-primary" onclick="sendRequest()">
+          🚀 Enviar pedido
+        </button>
       </div>
     </div>
   </div>
@@ -464,7 +496,7 @@
       <span class="card-title">📄 Última resposta</span>
     </div>
     <div class="card-body">
-      <div class="result-panel" id="result-panel">// Clica num endpoint acima para ver a resposta</div>
+      <div class="result-panel" id="result-panel">// Configura o alvo acima e clica em "Enviar pedido"</div>
     </div>
   </div>
 
@@ -485,10 +517,19 @@
     </div>
     <div class="card-body" style="display:grid; gap:10px;">
       <div class="info-box blue">
-        <strong>✅ Sucesso significa:</strong> O Chrome 142+ enviou o preflight LNA automaticamente, o servidor local respondeu com <code>Access-Control-Allow-Private-Network: true</code>, e o fetch de HTTPS para HTTP localhost funcionou sem device-server.
+        <strong>✅ Sucesso significa:</strong> o preflight <code>OPTIONS</code> foi respondido com
+        <code>Access-Control-Allow-Origin</code> (CORS comum) pelo software local, e o fetch de HTTPS
+        (github.io) para HTTP local funcionou sem device-server no meio. Se o Chrome 142+ também mostrar um
+        popup a pedir permissão de acesso à rede local (LNA) antes disso, tens de aceitar — mas essa permissão é
+        pedida ao utilizador, não depende de nenhum header que o software local tenha de enviar.
       </div>
       <div class="info-box yellow">
-        <strong>⚠️ Limitações conhecidas:</strong> LNA é <strong>Chrome-only</strong> (Safari não suporta). O Chrome pode mostrar um <strong>prompt de permissão</strong> ao utilizador a partir de versões futuras. Testar neste ficheiro aberto localmente (<code>file://</code>) simula o comportamento — para o teste real, serve esta página via HTTPS.
+        <strong>⚠️ Limitações conhecidas:</strong> LNA é <strong>Chrome-only</strong> (Safari não suporta). O
+        que mais frequentemente bloqueia o pedido é o software local <strong>não responder a CORS comum</strong>
+        — se não devolver <code>Access-Control-Allow-Origin</code> (e afins) no preflight, o pedido falha mesmo
+        que o software esteja a correr e a responder perfeitamente a clientes não-browser (curl, Postman). Usa
+        <code>local_server.py</code> (mock, já implementa CORS correto) para confirmar primeiro que o teu fluxo
+        funciona, depois aponta o campo "URL base" para o software real.
       </div>
     </div>
   </div>
@@ -496,8 +537,115 @@
 </div>
 
 <script>
-  const LOCAL_URL = 'http://localhost:8001';
   let requestCount = 0;
+
+  // ── Real-world example payload ────────────────────────────────────
+  // Captured from a real Sanday → device-server (/passthrough) → Vitalograph
+  // request. Used here to test the exact same payload sent directly to the
+  // Vitalograph Connect endpoint, bypassing device-server via LNA.
+  const FHIR_BUNDLE_EXAMPLE = {
+    resourceType: "Bundle",
+    type: "Message",
+    id: "02d80db9-7b69-4650-9da0-672bcbe8a459",
+    entry: [
+      {
+        fullUrl: "urn:uuid:063f510c-9e04-4e2b-9828-548bc8512e21",
+        resource: {
+          resourceType: "MessageHeader",
+          id: "989b1982-45af-4f3d-ae3d-6ca481cfbaab",
+          eventCoding: {
+            system: "http://hl7.org/fhir/message-events",
+            code: "order-request",
+            display: "Diagnostic Order Request"
+          },
+          source: {
+            endpoint: "http://www.promedico-huisarts.nl",
+            name: "Sanday B.V.",
+            software: "Sanday voor Huisarts",
+            version: "26.07"
+          },
+          destination: [
+            {
+              endpoint: "http://127.0.0.1:80/connect/Fhir/Bundle",
+              name: "Connect",
+              software: "Vitalograph",
+              version: "1.9.20"
+            }
+          ],
+          focus: [
+            { reference: "urn:uuid:a1c1b260-0c42-42bd-8d64-133762d820ee" }
+          ]
+        }
+      },
+      {
+        fullUrl: "urn:uuid:4F0612C8-C172-49C9-82FE-D7F6A09A8C12",
+        resource: {
+          resourceType: "Patient",
+          id: "4F0612C8-C172-49C9-82FE-D7F6A09A8C12",
+          identifier: [
+            { use: "official", value: "4F0612C8-C172-49C9-82FE-D7F6A09A8C12" }
+          ],
+          name: [
+            { use: "official", family: "Barish", given: ["Barry"] }
+          ],
+          gender: "Male",
+          birthDate: "1958-04-29",
+          extension: [
+            { url: "http://hl7.org/fhir/StructureDefinition/bodyweight" },
+            { url: "http://hl7.org/fhir/StructureDefinition/bodyheight" },
+            { url: "http://hl7.org/fhir/StructureDefinition/packyears" },
+            { url: "http://hl7.org/fhir/StructureDefinition/cigarettesperday" },
+            { url: "http://hl7.org/fhir/StructureDefinition/smokingdetails" },
+            { url: "http://hl7.org/fhir/StructureDefinition/patient-race" }
+          ]
+        }
+      },
+      {
+        fullUrl: "urn:uuid:0d1f7800-e296-4f3e-ae0f-6c5acdccc739",
+        resource: {
+          resourceType: "Practitioner",
+          id: "0d1f7800-e296-4f3e-ae0f-6c5acdccc739"
+        }
+      },
+      {
+        fullUrl: "urn:uuid:a1c1b260-0c42-42bd-8d64-133762d820ee",
+        resource: {
+          resourceType: "ServiceRequest",
+          id: "a1c1b260-0c42-42bd-8d64-133762d820ee",
+          identifier: [
+            { use: "official", value: "a1c1b260-0c42-42bd-8d64-133762d820ee" }
+          ],
+          status: "active",
+          intent: "order",
+          code: {
+            coding: [
+              { code: "81459-0", display: "Spirometry" }
+            ],
+            text: "Spirometry"
+          },
+          subject: {
+            reference: "urn:uuid:4F0612C8-C172-49C9-82FE-D7F6A09A8C12"
+          },
+          authoredOn: "2026-07-07T14:15:59+00:00",
+          requester: {
+            reference: "urn:uuid:0d1f7800-e296-4f3e-ae0f-6c5acdccc739"
+          }
+        }
+      }
+    ]
+  };
+
+  function loadFhirExample() {
+    document.getElementById('base-url').value = 'http://127.0.0.1:80';
+    document.getElementById('req-method').value = 'POST';
+    document.getElementById('req-path').value = '/connect/Fhir/Bundle';
+    document.getElementById('req-content-type').value = 'application/json; charset=utf-8';
+    document.getElementById('req-emr').value = 'sanday';
+    document.getElementById('req-authorization').value = '';
+    document.getElementById('req-body').value = JSON.stringify(FHIR_BUNDLE_EXAMPLE, null, 2);
+    updateFlowTarget();
+    log('info', 'Exemplo carregado: pedido real Sanday → Vitalograph (encomenda de espirometria via FHIR Bundle)');
+  }
 
   // ── Detect Chrome version ──────────────────────────────────────────
   function detectChrome() {
@@ -546,6 +694,16 @@
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  // ── Target base URL ───────────────────────────────────────────────
+  function getBaseUrl() {
+    const raw = document.getElementById('base-url').value.trim();
+    return raw.replace(/\/$/, '');
+  }
+
+  function updateFlowTarget() {
+    document.getElementById('flow-target').textContent = getBaseUrl() || '(vazio)';
+  }
+
   // ── Server status ──────────────────────────────────────────────────
   function setStatus(state) {
     const dot = document.getElementById('status-dot');
@@ -553,8 +711,8 @@
     dot.className = 'status-dot';
     const states = {
       checking: ['dot-yellow', 'A verificar...'],
-      online:   ['dot-green',  'Online'],
-      offline:  ['dot-red',    'Offline — corre python3 local_server.py'],
+      online:   ['dot-green',  'Alcançável'],
+      offline:  ['dot-red',    'Sem resposta'],
     };
     const [cls, label] = states[state] || ['dot-grey', 'Desconhecido'];
     dot.classList.add(cls);
@@ -563,65 +721,94 @@
   }
 
   async function checkServerHealth() {
+    const baseUrl = getBaseUrl();
+    if (!baseUrl) {
+      log('warn', 'Preenche a URL base antes de verificar.');
+      return;
+    }
     setStatus('checking');
-    log('request', '→ GET /health (verificação de saúde)');
+    log('request', `→ GET ${baseUrl}/ (verificação de alcance)`);
     try {
-      const r = await fetch(`${LOCAL_URL}/health`);
-      const data = await r.json();
+      const t0 = performance.now();
+      const r = await fetch(`${baseUrl}/`);
+      const ms = Math.round(performance.now() - t0);
       setStatus('online');
-      log('success', `✓ Servidor online — ${data.service} v${data.version}`);
-      log('info', `  LNA headers: Access-Control-Allow-Private-Network presente`);
+      log('success', `✓ Respondeu ${r.status} ${r.statusText} em ${ms}ms`);
+      log('info', `  Alvo alcançável — o browser completou o preflight CORS com sucesso`);
     } catch (e) {
       setStatus('offline');
       log('error', `✗ Erro: ${e.message}`);
-      log('warn', '  Verifica se o servidor Python está a correr');
+      log('warn', '  Confirma que o software está a correr, a porta está correta, e que');
+      log('warn', '  responde ao preflight OPTIONS com Access-Control-Allow-Origin (CORS comum)');
     }
   }
 
-  // ── Call endpoint ──────────────────────────────────────────────────
-  async function callEndpoint(method, path, body) {
+  // ── Send request ──────────────────────────────────────────────────
+  async function sendRequest() {
+    const baseUrl = getBaseUrl();
+    if (!baseUrl) {
+      log('warn', 'Preenche a URL base antes de enviar o pedido.');
+      return;
+    }
+
     requestCount++;
     const n = requestCount;
-    const url = `${LOCAL_URL}${path}`;
+    const path = document.getElementById('req-path').value.trim() || '/';
+    const method = document.getElementById('req-method').value;
+    const contentType = document.getElementById('req-content-type').value.trim();
+    const emr = document.getElementById('req-emr').value.trim();
+    const authorization = document.getElementById('req-authorization').value.trim();
+    const body = document.getElementById('req-body').value;
+    const url = baseUrl + (path.startsWith('/') ? path : `/${path}`);
 
-    log('request', `[${n}] → ${method} ${path}`);
-    if (method === 'POST' && body) {
-      log('info', `     Body: ${JSON.stringify(body)}`);
+    const headers = {};
+    if (contentType) headers['Content-Type'] = contentType;
+    if (emr) headers['EMR'] = emr;
+    if (authorization) headers['Authorization'] = authorization;
+
+    log('request', `[${n}] → ${method} ${url}`);
+    if (Object.keys(headers).length) {
+      log('info', `     Headers: ${JSON.stringify(headers)}`);
     }
-    log('preflight', `     Chrome vai enviar preflight OPTIONS com Access-Control-Request-Private-Network: true`);
+    if (method === 'POST' && body) {
+      log('info', `     Body: ${body}`);
+    }
+    log('preflight', `     Browser vai enviar preflight OPTIONS (CORS comum, obrigatório para POST + JSON) — Chrome 142+ pode também pedir permissão de acesso à rede local (LNA) ao utilizador`);
 
     const panel = document.getElementById('result-panel');
     panel.textContent = '// A aguardar resposta...';
     panel.style.color = 'var(--text-muted)';
 
     try {
-      const opts = {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-      };
+      const opts = { method, headers };
       if (method === 'POST' && body) {
-        opts.body = JSON.stringify(body);
+        opts.body = body;
       }
 
       const t0 = performance.now();
       const r = await fetch(url, opts);
       const ms = Math.round(performance.now() - t0);
-      const data = await r.json();
+      const text = await r.text();
 
-      log('success', `[${n}] ← ${r.status} OK  (${ms}ms)`);
-      log('success', `     Access-Control-Allow-Private-Network recebido ✓`);
+      log('success', `[${n}] ← ${r.status} ${r.statusText} (${ms}ms)`);
+      log('success', `     Preflight CORS aceite pelo browser ✓`);
 
-      const formatted = JSON.stringify(data, null, 2);
-      panel.textContent = formatted;
-      panel.style.color = 'var(--green)';
+      let formatted = text;
+      try {
+        formatted = JSON.stringify(JSON.parse(text), null, 2);
+      } catch {
+        // resposta não é JSON — mostra tal como veio
+      }
+      panel.textContent = formatted || '// (resposta vazia)';
+      panel.style.color = r.ok ? 'var(--green)' : 'var(--yellow)';
 
     } catch (e) {
       log('error', `[${n}] ✗ FALHOU: ${e.message}`);
-      log('error', `     Possíveis causas:`);
-      log('error', `     1. Servidor não está a correr`);
-      log('error', `     2. Chrome bloqueou mixed-content HTTPS→HTTP`);
-      log('error', `     3. LNA headers em falta no servidor`);
-      log('error', `     4. Chrome < 142 sem suporte LNA`);
+      log('error', `     Possíveis causas (mais prováveis primeiro):`);
+      log('error', `     1. Software não responde a CORS comum (falta Access-Control-Allow-Origin no OPTIONS)`);
+      log('error', `     2. Software não está a correr, ou porta/path errados`);
+      log('error', `     3. Popup de permissão LNA (Chrome 142+) não foi aceite pelo utilizador`);
+      log('error', `     4. Chrome bloqueou mixed-content HTTPS→HTTP`);
 
       panel.textContent = `// Erro: ${e.message}\n\n// Ver log para detalhes`;
       panel.style.color = 'var(--red)';
@@ -631,9 +818,10 @@
   // ── Init ───────────────────────────────────────────────────────────
   window.addEventListener('load', () => {
     detectChrome();
+    document.getElementById('base-url').addEventListener('input', updateFlowTarget);
+    updateFlowTarget();
     log('info', `Página carregada — origem: ${window.location.origin}`);
-    log('info', `Servidor alvo: ${LOCAL_URL}`);
-    log('info', `Clica num endpoint para testar LNA`);
+    log('info', `Configura a URL base do software local e clica em "Enviar pedido"`);
   });
 </script>
 
